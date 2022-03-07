@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="41.514" height="43.587" viewBox="0 0 41.514 43.587">
+  <g id="Group_12817" data-name="Group 12817" transform="translate(-169.486 -218.413)">
+    <path id="Icon_awesome-user" data-name="Icon awesome-user" d="M18.014,20.587A10.294,10.294,0,1,0,7.72,10.294,10.293,10.293,0,0,0,18.014,20.587Zm7.206,2.573H23.876a14,14,0,0,1-11.725,0H10.808A10.811,10.811,0,0,0,0,33.969v3.345a3.861,3.861,0,0,0,3.86,3.86H32.168a3.861,3.861,0,0,0,3.86-3.86V33.969A10.811,10.811,0,0,0,25.219,23.161Z" transform="translate(169.486 218.413)" fill="#aeaeae"/>
+    <g id="Group_12816" data-name="Group 12816" transform="translate(-6 -3)">
+      <circle id="Ellipse_132" data-name="Ellipse 132" cx="7" cy="7" r="7" transform="translate(203 251)" fill="#f2f2f2"/>
+      <path id="Icon_material-add-circle" data-name="Icon material-add-circle" d="M9,3a6,6,0,1,0,6,6A6,6,0,0,0,9,3Zm3,6.6H9.6V12H8.4V9.6H6V8.4H8.4V6H9.6V8.4H12Z" transform="translate(201 249)" fill="#aeaeae"/>
+    </g>
+  </g>
+</svg>

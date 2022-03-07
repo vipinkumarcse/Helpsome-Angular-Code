@@ -1,0 +1,149 @@
+<header class="splash_top_bar">
+  <div class="container">
+      <div class="row">
+          <div class="col-sm-12">
+              <nav class="navbar navbar-expand-lg navbar-dark bg-none flex-sm-row p-0 p-sm-2">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+              </button>
+                  <a class="navbar-brand" href="#">
+                      <img src="assets/images/logo_white.svg" alt="logo" class="img-fluid" />
+                  </a>
+                  
+                  <span class="custom_icon_padding d-block d-sm-none"  routerLink="/customers/profilecustomer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20.168" height="22.439" viewBox="0 0 20.168 22.439">
+                      <g id="Icon_feather-user" data-name="Icon feather-user" transform="translate(-5 -3.5)">
+                        <path id="Path_28367" data-name="Path 28367" d="M24.168,29.313V27.042A4.542,4.542,0,0,0,19.626,22.5H10.542A4.542,4.542,0,0,0,6,27.042v2.271" transform="translate(0 -4.374)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                        <path id="Path_28368" data-name="Path 28368" d="M21.084,9.042A4.542,4.542,0,1,1,16.542,4.5,4.542,4.542,0,0,1,21.084,9.042Z" transform="translate(-1.458)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                      </g>
+                    </svg>
+                  </span>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                          <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                            <!--  -->
+                            <!-- <li class="nav-item d-none d-sm-block" routerLink="/customers/homepagecustomer" >
+                              <a class="nav-link active text-white">Home</a>
+                            </li>
+                            <li class="nav-item d-none d-sm-block" routerLink="/customers/homepagecustomer">
+                              <a class="nav-link text-white">Posted Jobs</a>
+                            </li> -->
+                            <!-- <li class="nav-item d-none d-sm-block" routerLink="/customers/profilecustomer">
+                              <a class="nav-link text-white">My Profile</a>
+                            </li> -->
+                            <li class="nav-item d-none d-sm-block" routerLink="/customers/customer-about-us">
+                              <a class="nav-link text-white">About Us</a>
+                            </li>
+                            <li class="nav-item d-block d-sm-none" routerLink="/customers/customer-about-us">
+                              <a class="nav-link text-white">Contact Us</a>
+                            </li>
+                            <li class="nav-item d-none d-sm-block" (click)="openFeedback()">
+                              <a class="nav-link text-white">Feedback</a>
+                            </li>
+                            <li class="nav-item d-block d-sm-none" (click)="openFeedback()">
+                              <a class="nav-link text-white">Feedback</a>
+                            </li>
+                            <li class="nav-item d-block d-sm-none" (click)="logout()">
+                              <a class="nav-link text-white">Logout</a>
+                            </li>
+                          
+                            <div class="dropdown user_profile_div cursor-pointer ml-2 d-none d-sm-block">
+                                <div class="profile_outer_rotate dropdown-toggle"id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="assets/images/noimageavailable.png" alt="" *ngIf="!profilePic">
+                                    <img [src]="baseImgUrlCust+profilePic" alt="" *ngIf="profilePic">
+                                    <!-- <div class="profile_backimage"></div> -->
+  
+                                </div>
+  
+                                  <div class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" routerLink="/customers/profilecustomer">My Profile</a>
+                                    <a class="dropdown-item" (click)="logout()">Logout</a>
+                                  </div>
+                                </div>  
+
+                          </ul>
+
+                        </div>
+              </nav>
+          </div>
+      </div>
+  </div>
+</header>
+
+
+<div class="modal fade custom_modal" id="exampleModalCenter_contact_us" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header position-relative px-2 px-sm-3">
+              <h5 class="modal-title text-center f_22 fw_medium w-100" id="exampleModalLongTitle">Send Feedback</h5>
+              <button type="button" class="close" (click)="closeFeedback()" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body px-2 px-sm-3">
+              <form name="form1" #heroFormheader="ngForm" novalidate>
+                  <mat-label class="d-block mb-2">Email Address</mat-label>
+                  <mat-form-field appearance="fill" class="w-100 custom_textarea mb-4">
+                    <input matInput
+                    placeholder="Enter email address"
+                    [value]="email"
+                    name="ContactPersonEmailId"
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="email"
+                    #id="ngModel"
+                    pattern="^([\w\-\.]+)@((\[([0-9]{1,3}\.){3}[0-9]{1,3}\])|(([\w\-]+\.)+)([a-zA-Z]{2,4}))$"
+                    required
+                />
+              
+            </mat-form-field>
+            <div *ngIf="id.errors && (id.dirty || id.touched)" class="error_main_div">
+                <div [hidden]="!id.errors.required" class="error_message">
+                     E-Mail Id is Mandatory
+                </div>
+                <div [hidden]="!id.errors.pattern" class="error_message">
+                    Email Id invalid
+                </div>
+            </div>
+                  <mat-label class="d-block mb-2">Description</mat-label>
+                  <mat-form-field appearance="fill" class="w-100 custom_textarea">
+                      <textarea matInput  placeholder="Enter Description"
+                      [value]="description"
+                      name="ContactPersonDescription"
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="description"
+                      #iddescription="ngModel"
+                     pattern="^[A-Za-zăâîșțĂÂÎȘȚ\s-]*[A-Za-zăâîșțĂÂÎȘȚ-][A-Za-zăâîșțĂÂÎȘȚ\s-]*$"
+                      required></textarea>
+                  </mat-form-field>
+
+                  <div *ngIf="iddescription.errors && (iddescription.dirty || iddescription.touched)" class="error_main_div">
+                    <div [hidden]="!iddescription.errors.required" class="error_message">
+                         Description is Mandatory
+                    </div>
+                    <div [hidden]="!iddescription.errors.pattern" class="error_message">
+                      Invalid Description 
+                 </div>
+                    
+                </div>
+              </form>
+          </div>
+          <div class="modal-footer px-2 px-sm-3">
+              <button mat-button class="f_18 w-100 bg_green text-white p-2" [disabled]="!heroFormheader.valid"  (click)="submitFeedback()" >Submit</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div *ngIf="isLoading">
+  <div class="spinner_overlay"></div>
+  <div class="loader-container">
+      <div class="loader dots-wave">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+      </div>
+  </div>
+</div>
+
+

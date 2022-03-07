@@ -1,0 +1,663 @@
+<app-header-customer></app-header-customer>
+
+<section class="content_wrapper py-4 py-sm-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="messages_left_side p-0 p-sm-3 messages_show">
+                    <mat-tab-group class="messages_mat_tabs" [selectedIndex]="selectedTabIndex" (selectedIndexChange)="changeindex($event)">
+                        <mat-tab label="Messages">
+                            <div class="messages_scroll" *ngIf="ischatlistShow">
+                                <div class="media media-single message_show mb-3" (click)="setIndex(i, item)" *ngFor="let item of socketService.agencyUserChatList | async; let i = index" [ngClass]="{'active_chat': userSelected?._id == item?._id}" style="cursor: pointer;">
+                                    <a>
+                                        <img class="avatar avatar-lg img-fluid" [src]="baseImgUrlCust+item?.company?.logo" alt="..." *ngIf="item?.company?.logo" />
+                                        <img class="avatar avatar-lg img-fluid" src="assets/images/noimageavailable.png" alt="..." *ngIf="!item?.company?.logo" />
+
+                                    </a>
+
+                                    <div class="media-body ml-3">
+                                        <h6>
+                                            <a class="f_16 fw_medium text_black">{{item?.company?.companyName}} - {{item?.assignment?.headline}}</a>
+                                            <!-- <span class="time-meta pull-right">18:18</span> -->
+                                        </h6>
+                                        <div class="d-flex justify-content-between">
+                                            <p class="text-message f_14 fw_regular text_black mb-1">{{item?.lastMessageId?.message}}</p>
+                                            <span class="messages_counts" *ngIf="item?.unSeenCountByUser>0">{{item?.unSeenCountByUser}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="(socketService.agencyUserChatList | async)?.length === 0">
+                                    No Company Available
+                                </div>
+
+                            </div>
+
+                        </mat-tab>
+                        <mat-tab label="Outgoing Invitations">
+                            <div class="messages_scroll">
+                                <!-- <div class="invitation_box mb-3" (click)="item.status=='pending' ? setIndexInvitation(i, item) : setIndexInvitationAccepted(i, item)" 
+                                *ngFor="let item of outGoingInvitations ; let i = index"
+                                [ngClass]="{'active_chat': selectedIndexInv === i}" style="cursor: pointer;"> -->
+
+                                <div class="invitation_box mb-3" (click)="setIndexInvitation(i, item)" *ngFor="let item of outGoingInvitations ; let i = index" [ngClass]="{'active_chat': userSelectedinv?._id === item?._id}" style="cursor: pointer;">
+                                    <a class="align-self-start">
+                                        <img class="avatar avatar-lg img-fluid" [src]="baseImgUrlCust+item?.company?.logo" alt="..." *ngIf="item?.company?.logo" />
+                                        <img class="avatar avatar-lg img-fluid" src="assets/images/noimageavailable.png" alt="..." *ngIf="!item?.company?.logo" />
+                                    </a>
+
+                                    <div class="media-body ml-3">
+                                        <h6 class="mb-0">
+                                            <a class="f_16 fw_medium text_black">{{item?.company?.companyName}} - {{item?.assignment?.headline}}
+                                                 <!-- <span class="invitation_date text_gray">{{items?.user?.fullName}}</span> -->
+                                                
+                                                </a>
+                                            <div class="message_status_not_completed position-relative">The mission is {{item?.status}}.</div>
+                                        </h6>
+                                        <div class="d-flex justify-content-end">
+                                            <p class="invitation_edit mb-0" *ngIf="!item?.EditStatus" (click)="enableEdit($event,item)">Edit</p>
+                                        </div>
+                                        <div class="d-flex justify-content-end" *ngIf="item?.EditStatus">
+                                            <p class="invitation_edit mr-2" (click)="sendReminder($event,item)">Send Reminder</p>
+                                            <p class="cancel_invitation" (click)="cancelInv($event,item)">Cancel Invitation</p>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <div *ngIf="outGoingInvitations?.length === 0">
+                                    No Invitation Available
+                                </div>
+
+                                <!-- <div class="invitation_box mb-3">
+                                    <a href="#">
+                                        <img class="avatar avatar-lg img-fluid" src="assets/images/user.jpg" alt="..." />
+                                    </a>
+    
+                                    <div class="media-body ml-3">
+                                        <h6 class="mb-0">
+                                            <a class="f_16 fw_medium text_black">Hossein Shams <span class="invitation_date text_gray">Mar 12, 2021</span></a>
+                                            <div class="message_status_waiting position-relative">Waiting for reply.</div>
+                                        </h6>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <div class="invitation_box mb-3">
+                                    <a href="#">
+                                        <img class="avatar avatar-lg img-fluid" src="assets/images/user.jpg" alt="..." />
+                                    </a>
+    
+                                    <div class="media-body ml-3">
+                                        <h6 class="mb-0">
+                                            <a class="f_16 fw_medium text_black"> <span class="invitation_date text_gray">Mar 12, 2021</span>Hossein Shams</a>
+                                            <div class="message_status_invited position-relative">You have been invited.</div>
+                                        </h6>
+                                        
+                                    </div>
+                                </div>
+    
+                                <div class="invitation_box mb-3">
+                                    <a href="#">
+                                        <img class="avatar avatar-lg img-fluid" src="assets/images/user.jpg" alt="..." />
+                                    </a>
+    
+                                    <div class="media-body ml-3"> 
+                                        <h6 class="mb-0">
+                                            <a class="f_16 fw_medium text_black"> <span class="invitation_date text_gray">Mar 12, 2021</span>Hossein Shams</a>
+                                            <div class="message_status_not_completed position-relative">The mission is not completed.</div>
+                                        </h6>
+                                        
+                                    </div>
+                                </div>
+    
+                                <div class="invitation_box mb-3">
+                                    <a href="#">
+                                        <img class="avatar avatar-lg img-fluid" src="assets/images/user.jpg" alt="..." />
+                                    </a>
+    
+                                    <div class="media-body ml-3">
+                                        <h6 class="mb-0">
+                                            <a class="f_16 fw_medium text_black"> <span class="invitation_date text_gray">Mar 12, 2021</span>Hossein Shams</a>
+                                            <div class="message_status_waiting position-relative">Waiting for reply.</div>
+                                        </h6>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <div class="invitation_box mb-3">
+                                    <a href="#">
+                                        <img class="avatar avatar-lg img-fluid" src="assets/images/user.jpg" alt="..." />
+                                    </a>
+    
+                                    <div class="media-body ml-3">
+                                        <h6 class="mb-0">
+                                            <a class="f_16 fw_medium text_black"> <span class="invitation_date text_gray">Mar 12, 2021</span>Hossein Shams</a>
+                                            <div class="message_status_invited position-relative">You have been invited.</div>
+                                        </h6>
+                                        
+                                    </div>
+                                </div> -->
+                            </div>
+
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+            </div>
+
+            <div class="col-sm-7" *ngIf="ischatBoxShow && isSelectedChat && selectedTabIndex==0">
+                <div class="messages_left_side chatbox_show">
+                    <div class="media media-single px-3 pt-3 pb-2">
+                        <a style="cursor: pointer;" title="View Profile" (click)="viewProfileCompany(userSelected?.company._id)">
+                            <img class="avatar avatar-lg img-fluid" [src]="baseImgUrlCust+ userSelected?.company?.logo" alt="..." *ngIf="userSelected?.company?.logo" />
+                            <img class="avatar avatar-lg img-fluid" src="assets/images/noimageavailable.png" alt="..." *ngIf="!userSelected?.company?.logo" />
+                        </a>
+
+                        <div class="media-body ml-3 d-flex justify-content-between">
+                            <h6>
+                                <a class="f_16 fw_medium text_black"> {{ userSelected?.company?.companyName}} - {{ userSelected?.assignment?.headline}} </a>
+                                <!-- <span class="time-meta pull-right">18:18</span> -->
+                                <!-- <p class="f_14 text_gray mt-2">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10.706" height="15.295" viewBox="0 0 10.706 15.295">
+                                            <path
+                                                id="placeholder"
+                                                d="M12.853,3A5.349,5.349,0,0,0,7.5,8.353c0,4.015,5.353,9.941,5.353,9.941s5.353-5.927,5.353-9.941A5.349,5.349,0,0,0,12.853,3Zm0,7.265a1.912,1.912,0,1,1,1.912-1.912A1.913,1.913,0,0,1,12.853,10.265Z"
+                                                transform="translate(-7.5 -3)"
+                                                fill="#a8a8a8"
+                                            />
+                                        </svg>
+                                    </span>
+                                    Majorstua, 1.0 Miles
+                                </p> -->
+                            </h6>
+                        </div>
+                    </div>
+
+                    <div class="messages_show2" id="conversation">
+                        <!-- <p class="f_16 text-black p-3">Dear Customer<br>
+                            My name is vando besker and will be contacted with your bathroom renovation in mind. I would like to start by informing you that we are a serious person with a lot of experience and good competence.
+                            feel free to see www.bygglund.no</p> -->
+                        <!-- <div class="message_action_btn w-50 mx-auto">
+                                    <button mat-button class="f_16 bg_green text-white mt-3 mt-sm-2 p-2 w-100" data-toggle="modal" data-target="#exampleModalCenter_view_profile">See Profile</button>
+                                    <button mat-button class="f_16 bg_green mt-3 mt-sm-2 p-2 w-100 send_btn message_show2">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="16.084" height="16.084" viewBox="0 0 16.084 16.084">
+                                                <path id="Icon_feather-message-square" data-name="Icon feather-message-square" d="M20.584,15.223A1.787,1.787,0,0,1,18.8,17.01H8.074L4.5,20.584V6.287A1.787,1.787,0,0,1,6.287,4.5H18.8a1.787,1.787,0,0,1,1.787,1.787Z" transform="translate(-4.5 -4.5)" fill="#464646"/>
+                                            </svg>
+                                        </span>
+                                        Engage in conversation</button>
+                                    <button mat-button class="f_16 bg_green text-white mt-3 mt-sm-2 mb-4 p-2 w-100 decline_btn">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="17.042" height="17.042" viewBox="0 0 17.042 17.042">
+                                                <path id="disabled" d="M8.521,0a8.521,8.521,0,1,0,8.521,8.521A8.531,8.531,0,0,0,8.521,0ZM2.13,8.521a6.349,6.349,0,0,1,1.187-3.7l8.9,8.9A6.381,6.381,0,0,1,2.13,8.521Zm11.594,3.7-8.9-8.9a6.381,6.381,0,0,1,8.9,8.9Z" fill="#fff"/>
+                                              </svg>
+                                        </span>
+                                        Decline</button>
+            
+                                </div> -->
+                    </div>
+
+
+                    <ng-container *ngIf="ischatBoxShow && isSelectedChat">
+                        <div class="message chatbox_show2 pb-0 pb-sm-2 messages_scrollmessagecontent" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+                            <ul class="chat-list mt-1 px-1 " *ngFor="let item of userChatMessages | async">
+                                <!--chat Row -->
+                                <li *ngIf="item.sender=='company'">
+                                    <div class="chat-img"><img *ngIf="item?.company?.logo" [src]="baseImgUrlCust+item?.company?.logo" alt="user" class="img-fluid" />
+                                        <img *ngIf="!item?.company?.logo" src="assets/images/noimageavailable.png" alt="user" class="img-fluid" />
+                                    </div>
+                                    <div class="chat-content" *ngIf="!item.isVideoCall">
+                                        <div class="chating-box">{{item.message}}
+                                            <button class="btn translate" (click)="transtxt(item)" data-toggle="modal" data-target="#translate_message"><img src="assets/images/translate.svg"> Translate</button>
+                                        </div>
+                                        <div class="time-meta">{{item.sendTime | date: 'shortTime'}}</div>
+                                    </div>
+                                    <div class="chat-content" *ngIf="item.isVideoCall">
+                                        <div class="chating-box"><b><u>Video Call Done</u></b></div>
+                                        <div class="time-meta">{{item.start_time | date: 'shortTime'}}-{{item.end_time?item.end_time:item.start_time | date: 'shortTime'}}</div>
+                                    </div>
+                                </li>
+                                <!--chat Row -->
+
+                                <!--chat Row -->
+
+                                <li class="reverse" *ngIf="item.sender=='user'">
+                                    <div class="chat-content my-message" *ngIf="!item.isVideoCall">
+                                        <div class="chating-box cl-white bg-primary">{{item.message}}
+                                            <button class="btn translate ml-auto" (click)="transtxt(item)" data-toggle="modal" data-target="#translate_message"><img src="assets/images/translate.svg"> Translate</button>
+                                        </div>
+                                        <div class="time-meta">{{item.sendTime | date: 'shortTime'}}</div>
+                                    </div>
+                                    <div class="chat-content my-message" *ngIf="item.isVideoCall">
+                                        <div class="chating-box cl-white bg-primary"><b><u>Video Call Done</u></b></div>
+                                        <div class="time-meta">{{item.start_time | date: 'shortTime'}}-{{item.end_time?item.end_time:item.start_time | date: 'shortTime'}}</div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <div class="w-50 w-sm-100 mx-auto mb-4 mb-sm-3 px-3 px-sm-0">
+                                <button mat-button class="f_16 bg_green text-white mt-3 mt-sm-2 p-2 w-100" data-toggle="modal" (click)="offerCompleted()" *ngIf="userSelected.assignment?.status=='offered'">Mark As Completed</button>
+                            </div>
+
+                        </div>
+
+                        <div class="reply-main position-relative px-3 mb-2">
+                            <span class="videocallicn"><img src="assets/images/videoicn.svg" (click)="videoCall(userSelected)" alt="" class="img-fluid cursor-pointer" /> </span>
+                            <input class="form-control" rows="1" id="comment" #messageToBoSend (keyup.enter)="sendMessage(messageToBoSend.value)" placeholder="Type a message" />
+                            <span>
+                                    <svg data-toggle="modal" *ngIf="userSelected.assignment?.status=='accepted'" data-target="#exampleModalCenter_offer_assigment" class="mr-3" xmlns="http://www.w3.org/2000/svg" width="18.638" height="18.638" viewBox="0 0 18.638 18.638">
+                                        <g id="Icon_ionic-ios-add-circle-outline" data-name="Icon ionic-ios-add-circle-outline" transform="translate(-3.375 -3.375)">
+                                          <path id="Path_31601" data-name="Path 31601" d="M19.338,14.566H16V11.229a.717.717,0,0,0-1.434,0v3.338H11.229a.687.687,0,0,0-.717.717.694.694,0,0,0,.717.717h3.338v3.338a.694.694,0,0,0,.717.717A.713.713,0,0,0,16,19.338V16h3.338a.717.717,0,1,0,0-1.434Z" transform="translate(-2.589 -2.589)" fill="#464646"/>
+                                          <path id="Path_31602" data-name="Path 31602" d="M12.694,4.629a8.061,8.061,0,1,1-5.7,2.361,8.011,8.011,0,0,1,5.7-2.361m0-1.254a9.319,9.319,0,1,0,9.319,9.319,9.317,9.317,0,0,0-9.319-9.319Z" transform="translate(0)" fill="#464646"/>
+                                        </g>
+                                      </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="Send_btn" width="24.372" height="18.638" viewBox="0 0 24.372 18.638" (click)="sendMessage(messageToBoSend.value)">
+                                        <g id="send_1_" data-name="send (1)" transform="translate(0 0)">
+                                            <g id="Group_618" data-name="Group 618">
+                                                <path id="Path_1175" data-name="Path 1175" d="M.012,0,0,7.248,17.409,9.319,0,11.39l.012,7.248L24.372,9.319Z" fill="#1bbc9b" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                        </div>
+                    </ng-container>
+
+                </div>
+            </div>
+
+            <div class="col-sm-7 d-flex" *ngIf="!ischatBoxShow && !isSelectedChat && selectedTabIndex==0">
+                <div class="messages_left_side chatbox_show no-chat-bax text-center">
+                    <h2>Messages</h2>
+                    <p>Is a list of all active conversations that you have ongoing with companies</p>
+                    <img src="assets/images/chat-image.svg">
+                </div>
+            </div>
+
+            <div class="col-sm-7" *ngIf="isOutgoingSelected && selectedTabIndex==1">
+                <div class="messages_left_side chatbox_show">
+                    <div class="media media-single px-3 pt-3 pb-0">
+                        <a>
+                            <img class="avatar avatar-lg img-fluid" [src]="baseImgUrlCust+ userSelectedinv?.company?.logo" alt="..." *ngIf="userSelectedinv?.company?.logo" />
+                            <img class="avatar avatar-lg img-fluid" src="assets/images/noimageavailable.png" alt="..." *ngIf="!userSelectedinv?.company?.logo" />
+                        </a>
+
+                        <div class="media-body ml-3 d-flex justify-content-between">
+                            <h6>
+                                <a class="f_16 fw_medium text_black"> {{ userSelectedinv?.company?.companyName}} - {{ userSelectedinv?.assignment?.headline}}</a>
+                                <!-- <span class="time-meta pull-right">18:18</span> -->
+                                <!-- <p class="f_14 text_gray mt-2">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10.706" height="15.295" viewBox="0 0 10.706 15.295">
+                                            <path
+                                                id="placeholder"
+                                                d="M12.853,3A5.349,5.349,0,0,0,7.5,8.353c0,4.015,5.353,9.941,5.353,9.941s5.353-5.927,5.353-9.941A5.349,5.349,0,0,0,12.853,3Zm0,7.265a1.912,1.912,0,1,1,1.912-1.912A1.913,1.913,0,0,1,12.853,10.265Z"
+                                                transform="translate(-7.5 -3)"
+                                                fill="#a8a8a8"
+                                            />
+                                        </svg>
+                                    </span>
+                                    Majorstua, 1.0 Miles
+                                </p> -->
+                            </h6>
+                            <span><img src="assets/images/video-call.png" alt="" class="img-fluid cursor-pointer d-none" /> </span>
+                        </div>
+                    </div>
+
+                    <div class="messages_show2" id="conversation">
+                        <!-- <p class="f_16 text-black p-3">Dear Customer<br>
+                            {{userSelectedinv?.assignment?.description}}</p> -->
+                        <p class="f_16 text-black p-3">Hi<br><br> {{userSelectedinv?.assignment?.description}}
+                            <br>
+                            <br> Please let me know if you are interested in helping me out.
+                            <br>
+                            <br> Best Regards.
+                            <br> {{ userSelectedinv?.company?.companyName}}
+                        </p>
+                        <div class="message_action_btn w-50 mx-auto">
+                            <button mat-button class="f_16 bg_green text-white mt-3 mt-sm-2 p-2 w-100" (click)="viewProfileCompany(userSelectedinv?.company._id)">See Profile</button>
+                            <p class="mb-4" *ngIf="userSelectedinv?.status!=='pending' || userSelectedinv?.sendBy=='user'"></p>
+                            <button mat-button class="f_16 bg_green mt-3 mt-sm-2 p-2 w-100 send_btn message_show2" (click)="engageInconversation(userSelectedinv?._id)" *ngIf="userSelectedinv.status=='pending' && userSelectedinv?.sendBy=='company'">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="16.084" height="16.084" viewBox="0 0 16.084 16.084">
+                                                <path id="Icon_feather-message-square" data-name="Icon feather-message-square" d="M20.584,15.223A1.787,1.787,0,0,1,18.8,17.01H8.074L4.5,20.584V6.287A1.787,1.787,0,0,1,6.287,4.5H18.8a1.787,1.787,0,0,1,1.787,1.787Z" transform="translate(-4.5 -4.5)" fill="#464646"/>
+                                            </svg>
+                                        </span>
+                                        Engage in conversation</button>
+                            <button mat-button class="f_16 bg_green text-white mt-3 mt-sm-2 mb-4 p-2 w-100 decline_btn" *ngIf="userSelectedinv.status=='pending' && userSelectedinv?.sendBy=='company'" (click)="declineconversation(userSelectedinv?._id)">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="17.042" height="17.042" viewBox="0 0 17.042 17.042">
+                                                <path id="disabled" d="M8.521,0a8.521,8.521,0,1,0,8.521,8.521A8.531,8.531,0,0,0,8.521,0ZM2.13,8.521a6.349,6.349,0,0,1,1.187-3.7l8.9,8.9A6.381,6.381,0,0,1,2.13,8.521Zm11.594,3.7-8.9-8.9a6.381,6.381,0,0,1,8.9,8.9Z" fill="#fff"/>
+                                              </svg>
+                                        </span>
+                                        Decline</button>
+
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+            <div class="col-sm-7 d-flex" *ngIf="!isOutgoingSelected && selectedTabIndex==1">
+                <div class="messages_left_side chatbox_show no-chat-bax text-center">
+                    <h2>Messages</h2>
+                    <p>Is a list of all active conversations that you have ongoing with companies</p>
+                    <img src="assets/images/chat-image.svg">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<section class="sidemenu_fixed" routerLink="/customers/homepagecustomer">
+    <span class="">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30.298" height="33.331" viewBox="0 0 30.298 33.331">
+            <g id="Icon_feather-home" data-name="Icon feather-home" transform="translate(1.5 1.5)">
+              <path id="Path_28365" data-name="Path 28365" d="M4.5,13.616,18.149,3,31.8,13.616V30.3a3.033,3.033,0,0,1-3.033,3.033H7.533A3.033,3.033,0,0,1,4.5,30.3Z" transform="translate(-4.5 -3)" fill="none" stroke="#1bbc9b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+              <path id="Path_28366" data-name="Path 28366" d="M13.5,33.165V18h9.1V33.165" transform="translate(-4.401 -2.835)" fill="none" stroke="#1bbc9b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+            </g>
+        </svg>
+    </span>
+
+    <span class="" routerLink="/customers/uploadassignmentcustomer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32.29" height="32.29" viewBox="0 0 32.29 32.29">
+            <g id="Icon_feather-upload" data-name="Icon feather-upload" transform="translate(1.5 1.5)">
+              <path id="Path_31593" data-name="Path 31593" d="M33.79,22.5v6.509a3.254,3.254,0,0,1-3.254,3.254H7.754A3.254,3.254,0,0,1,4.5,29.009V22.5" transform="translate(-4.5 -2.973)" fill="none" stroke="#1bbc9b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+              <path id="Path_31594" data-name="Path 31594" d="M26.772,12.636,18.636,4.5,10.5,12.636" transform="translate(-3.991 -4.5)" fill="none" stroke="#1bbc9b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+              <path id="Path_31595" data-name="Path 31595" d="M18,4.5V24.027" transform="translate(-3.355 -4.5)" fill="none" stroke="#1bbc9b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+            </g>
+          </svg>
+    </span>
+
+    <span class="fixed_active" [ngClass]="{'messageunread' : messageUnseenVal>0}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32.161" height="32.161" viewBox="0 0 32.161 32.161">
+            <path id="Icon_feather-message-square" data-name="Icon feather-message-square" d="M33.661,23.941a3.24,3.24,0,0,1-3.24,3.24H10.98L4.5,33.661V7.74A3.24,3.24,0,0,1,7.74,4.5H30.421a3.24,3.24,0,0,1,3.24,3.24Z" transform="translate(-3 -3)" fill="none" stroke="#1bbc9b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+          </svg>
+    </span>
+</section>
+
+<app-footercustomer class=""></app-footercustomer>
+
+
+<!-- Apply Job popup starts -->
+
+<div class="modal fade custom_modal custom_modal_width" id="exampleModalCenter_view_profile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header position-relative px-2 px-sm-3">
+                <h5 class="modal-title text-center f_22 fw_medium w-100" id="exampleModalLongTitle">Profile Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body px-2 px-sm-3">
+                <div class="d-flex justify-content-center justify-content-sm-between align-items-start">
+                    <div class="d-sm-flex px-1 px-sm-3 w-100">
+                        <div class="user_profile">
+                            <img class="avatar avatar-lg img-fluid" src="assets/images/noimageavailable.png" alt="..." *ngIf="!companyProfile?.logo" />
+                            <img class="avatar avatar-lg img-fluid" [src]="baseImgUrlComp+companyProfile.logo" alt="..." *ngIf="companyProfile?.logo" />
+                        </div>
+                        <div class="user_info pl-0 pl-sm-3">
+                            <h5 class="f_22 fw_medium text_black mb-4 mb-sm-3 mt-3 mt-sm-0 text-center text-sm-left">{{companyProfile?.companyName}}</h5>
+                            <div>
+                                <span>Organization Number</span>
+                                <p class="f_16 fw_medium text_black mb-2">{{companyProfile?.companyNumber | formatPhone}}</p>
+                            </div>
+                            <div>
+                                <span>Phone Number</span>
+                                <p class="f_16 fw_medium text_black">{{companyProfile?.countryCode}} {{companyProfile?.phone | formatphonenew}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <!-- <button mat-button class="f_16 bg_green text-white mt-4 p-2 px-3" (click)="inviteToAssignment(companyProfile._id)" >Invite To An Assignment</button> -->
+                    </div>
+                </div>
+
+                <div class="row mt-4 px-1 px-sm-3">
+                    <div class="col-sm-6">
+                        <div class="user_reviews">
+                            <h6 class="f_18 fw_medium position-relative mb-4">Reviews</h6>
+
+                            <ng-container *ngIf="companyProfile?.allReviews?.length<1">
+                                <div class="d-flex">
+                                    <div class="uploaded_image_size position-relative">
+                                        <img src="assets/images/nocompanyreviews.png" alt="" class="img-fluid w-100 added_image" />
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <div>
+                                <ng-container *ngIf="companyProfile?.allReviews?.length==1">
+                                    <div class="user_review_box" *ngFor="let img of companyProfile?.allReviews">
+                                        <div class="user_rating_img mb-3">
+                                            <img class="avatar avatar-lg img-fluid" src="assets/images/review-image.png" alt="..." *ngIf="!img?.review?.author?.profilePic" />
+                                            <img class="avatar avatar-lg img-fluid" [src]="baseImgUrlComp+img.review.author.profilePic" alt="..." *ngIf="img?.review?.author?.profilePic" />
+                                        </div>
+                                        <h5 class="f_16 fw_medium text-black mb-1">{{img?.review?.author?.fullName}}</h5>
+                                        <div class="ratings mb-1">
+                                            <star-rating value="{{img?.review?.starCount}}" [totalstars]="5" checkedcolor="yellow" uncheckedcolor="black" readonly="true" size="24px" (rate)="onRate($event)"></star-rating>
+                                        </div>
+                                        <p class="mb-0">{{img?.review?.text}}</p>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="companyProfile?.allReviews?.length>1">
+                                    <ngx-slick-carousel (init)="slickInit($event)" class="carousel" #slickModala="slick-carousel" [config]="slideConfig2">
+                                        <ng-container *ngIf="showcarsuel">
+                                            <div ngxSlickItem *ngFor="let img of companyProfile?.allReviews" class="slide">
+                                                <div class="user_review_box">
+                                                    <div class="user_rating_img mb-3">
+                                                        <img class="avatar avatar-lg img-fluid" src="assets/images/review-image.png" alt="..." *ngIf="!img?.review?.author?.profilePic" />
+                                                        <img class="avatar avatar-lg img-fluid" [src]="baseImgUrlComp+img.review.author.profilePic" alt="..." *ngIf="img?.review?.author?.profilePic" />
+                                                    </div>
+                                                    <h5 class="f_16 fw_medium text-black mb-1">{{img?.review?.author?.fullName}}</h5>
+                                                    <div class="ratings mb-1">
+                                                        <star-rating value="{{img?.review?.starCount}}" [totalstars]="5" checkedcolor="yellow" uncheckedcolor="black" readonly="true" size="24px" (rate)="onRate($event)"></star-rating>
+                                                    </div>
+                                                    <p class="mb-0">{{img?.review?.text}}</p>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </ngx-slick-carousel>
+                                    <!-- <button class="btn-next" (click)="next()">next</button>
+<button class="btn-prev" (click)="prev()">prev</button> -->
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="user_reviews">
+                            <h6 class="f_18 fw_medium position-relative mb-4">Uploaded Images</h6>
+                            <div class="row">
+                                <ng-container *ngIf="companyProfile?.galleryImages?.length>0">
+                                    <div class="col-6 col-sm-4 mb-4 mb-sm-3" *ngFor="let images of companyProfile?.galleryImages">
+                                        <div class="d-flex">
+                                            <div class="uploaded_image_size position-relative">
+                                                <img [src]="baseImgUrl+images" alt="" class="img-fluid w-100 added_image" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="companyProfile?.galleryImages?.length<1">
+                                    <div class="col-6 col-sm-4 mb-4 mb-sm-3">
+                                        <div class="d-flex">
+                                            <div class="uploaded_image_size position-relative">
+                                                <img src="assets/images/noimageavailable.png" alt="" class="img-fluid w-100 added_image" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Apply Job popup ends -->
+
+<!-- Offer Assignment popup starts -->
+
+<div class="modal fade custom_modal" id="exampleModalCenter_offer_assigment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header position-relative px-2 px-sm-3">
+                <h5 class="modal-title text-center f_22 fw_medium w-100" id="exampleModalLongTitle">Offer The Assignment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pb-0 pt-0 pt-sm-2 px-2 px-sm-3">
+                <p class="share_post_text fw_light f_18 text_gray text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed convallis leo in nulla ullamrper, sed fringilla erat sagittis</p>
+            </div>
+            <div class="modal-footer pb-0 px-2 px-sm-3">
+                <button mat-button class="f_18 w-100 bg_green text-white p-2 mb-1" (click)="offerAccepted()">Offer Now</button>
+                <button mat-button class="f_16 w-100 text_gray fw_light" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Offer Assignment popup ends -->
+
+
+<!-- Offer Assignment popup starts -->
+
+<div class="modal fade custom_modal" id="exampleModalCenter_rating" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header position-relative px-2 px-sm-3">
+                <h5 class="modal-title text-center f_22 fw_medium w-100" id="exampleModalLongTitle">Add Review</h5>
+                <!-- <button type="button" class="close"  aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button> -->
+            </div>
+            <div class="modal-body pb-0 pt-0 pt-sm-2 px-2 px-sm-3">
+                <div class="ratings mb-4 text-center d-block">
+
+                    <star-rating [value]="starRating" [totalstars]="5" checkedcolor="yellow" uncheckedcolor="black" readonly="false" size="24px" (rate)="onRatee($event)"></star-rating>
+                    <!-- <span class="active">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13.102" height="12.503" viewBox="0 0 13.102 12.503">
+                            <path
+                                id="Path"
+                                d="M12.4,4.135,8.866,3.622,7.285.419a.853.853,0,0,0-1.469,0l-1.58,3.2L.7,4.135a.82.82,0,0,0-.454,1.4L2.806,8.025l-.6,3.52a.82.82,0,0,0,1.188.863l3.16-1.661,3.161,1.662a.82.82,0,0,0,1.188-.863l-.6-3.52,2.558-2.492A.821.821,0,0,0,12.4,4.135Z"
+                                fill="#c8c8c8"
+                            />
+                        </svg>
+                    </span>
+                    <span class="active">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13.102" height="12.503" viewBox="0 0 13.102 12.503">
+                            <path
+                                id="Path"
+                                d="M12.4,4.135,8.866,3.622,7.285.419a.853.853,0,0,0-1.469,0l-1.58,3.2L.7,4.135a.82.82,0,0,0-.454,1.4L2.806,8.025l-.6,3.52a.82.82,0,0,0,1.188.863l3.16-1.661,3.161,1.662a.82.82,0,0,0,1.188-.863l-.6-3.52,2.558-2.492A.821.821,0,0,0,12.4,4.135Z"
+                                fill="#c8c8c8"
+                            />
+                        </svg>
+                    </span>
+                    <span class="active">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13.102" height="12.503" viewBox="0 0 13.102 12.503">
+                            <path
+                                id="Path"
+                                d="M12.4,4.135,8.866,3.622,7.285.419a.853.853,0,0,0-1.469,0l-1.58,3.2L.7,4.135a.82.82,0,0,0-.454,1.4L2.806,8.025l-.6,3.52a.82.82,0,0,0,1.188.863l3.16-1.661,3.161,1.662a.82.82,0,0,0,1.188-.863l-.6-3.52,2.558-2.492A.821.821,0,0,0,12.4,4.135Z"
+                                fill="#c8c8c8"
+                            />
+                        </svg>
+                    </span>
+                    <span class="active">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13.102" height="12.503" viewBox="0 0 13.102 12.503">
+                            <path
+                                id="Path"
+                                d="M12.4,4.135,8.866,3.622,7.285.419a.853.853,0,0,0-1.469,0l-1.58,3.2L.7,4.135a.82.82,0,0,0-.454,1.4L2.806,8.025l-.6,3.52a.82.82,0,0,0,1.188.863l3.16-1.661,3.161,1.662a.82.82,0,0,0,1.188-.863l-.6-3.52,2.558-2.492A.821.821,0,0,0,12.4,4.135Z"
+                                fill="#c8c8c8"
+                            />
+                        </svg>
+                    </span>
+                    <span class="inactive">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13.102" height="12.503" viewBox="0 0 13.102 12.503">
+                            <path
+                                id="Path"
+                                d="M12.4,4.135,8.866,3.622,7.285.419a.853.853,0,0,0-1.469,0l-1.58,3.2L.7,4.135a.82.82,0,0,0-.454,1.4L2.806,8.025l-.6,3.52a.82.82,0,0,0,1.188.863l3.16-1.661,3.161,1.662a.82.82,0,0,0,1.188-.863l-.6-3.52,2.558-2.492A.821.821,0,0,0,12.4,4.135Z"
+                                fill="#c8c8c8"
+                            />
+                        </svg>
+                    </span> -->
+
+                </div>
+                <mat-label class="mb-2 d-block f_18 fw_medium">Write a review</mat-label>
+                <mat-form-field appearance="fill" class="w-100 mb-4 bg-none custom_border_input">
+                    <textarea matInput [(ngModel)]="comment" placeholder="Add your text"></textarea>
+                </mat-form-field>
+            </div>
+            <div class="modal-footer pb-2 px-2 px-sm-3">
+                <button mat-button class="f_18 w-100 bg_green text-white p-2 mb-1" (click)="AddRating()">Post</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade custom_modal" id="translate_message" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm select_language" role="document">
+        <div class="modal-content">
+            <div class="modal-header position-relative px-2 px-sm-3 pb-0 pt-1">
+                <h5 class="modal-title text-left f_20  fw_medium w-100" id="exampleModalLongTitle">Select Language</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body px-2 px-sm-3">
+                <div class="custom-control custom-radio mb-2 pb-1">
+                    <input type="radio" id="English" name="selectlanguage" value="en" class="custom-control-input" [(ngModel)]="languageSelected">
+                    <label class="custom-control-label" for="English">English <img class="flagimg" src="assets/images/flags/englishflag.png"></label>
+                </div>
+                <div class="custom-control custom-radio mb-2 pb-1">
+                    <input type="radio" id="Polish" name="selectlanguage" value="pl" class="custom-control-input" [(ngModel)]="languageSelected">
+                    <label class="custom-control-label" for="Polish">Polish <img class="flagimg" src="assets/images/flags/polandflag.png"></label>
+                </div>
+
+                <div class="custom-control custom-radio mb-2 pb-1">
+                    <input type="radio" id="Bulgarian" name="selectlanguage" value="bg" class="custom-control-input" [(ngModel)]="languageSelected">
+                    <label class="custom-control-label" for="Bulgarian">Bulgarian <img class="flagimg" src="assets/images/flags/bulgariaflag.png"></label>
+                </div>
+
+                <div class="custom-control custom-radio mb-2 pb-1">
+                    <input type="radio" id="Lithuanian" name="selectlanguage" value="lt" class="custom-control-input" [(ngModel)]="languageSelected">
+                    <label class="custom-control-label" for="Lithuanian">Lithuanian <img class="flagimg" src="assets/images/flags/lithuaniaflag.png"></label>
+                </div>
+
+                <div class="custom-control custom-radio mb-2 pb-1">
+                    <input type="radio" id="Norway" name="selectlanguage" value="no" class="custom-control-input" [(ngModel)]="languageSelected">
+                    <label class="custom-control-label" for="Norway">Norwegian <img class="flagimg" src="assets/images/flags/norwayflag.png"></label>
+                </div>
+
+                <div class="">
+                    <button mat-button class="f_16 bg_green text-white mt-4 py-0 px-3 mx-auto d-block" (click)="translateText()">Translate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<audio #notificationTone>
+    <source src="../../../assets/ringtones/notification.mp3" type="audio/mp3" />
+  </audio>
+
+<!-- Offer Assignment popup ends -->
+
+<!-- <div *ngIf="isLoading">
+    <div class="spinner_overlay"></div>
+    <div class="loader-container">
+        <div class="loader dots-wave">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+    </div>
+    </div> -->

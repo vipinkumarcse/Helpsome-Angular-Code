@@ -1,0 +1,23 @@
+
+.user_review_box p {font-size: 12px;}
+.user_reviews h6:after {width: 50px;height: 2px;background: #1BBC9B;content: '';position: absolute;left: 0;bottom: -8px;
+border-radius: 50px;}
+.add_photos.position-relative input {height: 140px; opacity: 0;position: relative;z-index: 999;}
+.add_photo_uploader {width: 100%; height: 140px; background: #F6FCFF;border: 1px dashed #1BBC9B;display: flex;align-items: center;justify-content: center;flex-direction: column;padding: 20px;position: absolute;top: 0;border-radius: 5px;}
+.add_photo_uploader p {color: #1BBC9B;font-size: 16px;}
+.add_photo_uploader svg path {stroke: #1BBC9B;}
+.added_image {border-radius: 5px;}
+.delete_icon {position: absolute;right: -6px;top: -6px; cursor: pointer;}
+.uploaded_image_size .added_image {width: 100%;height: 100%;}
+.uploaded_image_size {width: 100%;height: 140px;}
+
+@media (max-width: 767px) {
+    a.navbar-brand {width: max-content; margin: 0;}
+    .navbar span {padding: 0.25rem 0.75rem;}
+}
+
+@media (max-width: 370px) and (min-width: 320px) {
+    .navbar span{padding: 0.25rem 0rem !important;}
+    a.navbar-brand {width: 67% !important;}
+}
+

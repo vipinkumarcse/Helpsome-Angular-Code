@@ -1,0 +1,220 @@
+.messages_scroll {
+    overflow-y: auto;
+    height: calc(100vh - 290px);
+}
+
+.messages_scrollmessagecontent {
+    overflow-y: auto;
+    height: calc(100vh - 323px);
+}
+
+.decline_btn {
+    background: #FF7D5B !important;
+}
+
+.send_btn {
+    background: #EBEBEB !important;
+    color: #464646 !important;
+}
+
+.decline_btn svg {
+    position: relative;
+    top: -2px;
+}
+
+.ratings .active svg path {
+    fill: #FFCF00;
+}
+
+.ratings svg {
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+}
+
+.ratings span {
+    fill: #FFCF00;
+}
+
+span.reviews_counts {
+    color: #FFC107;
+    text-decoration: underline;
+    margin-left: 4px;
+}
+
+.user_rating_img {
+    width: 100%;
+    height: 100px;
+    border-radius: 10px;
+}
+
+.user_rating_img img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.user_review_box {
+    padding: 10px;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 8px;
+}
+
+.user_review_box p {
+    font-size: 12px;
+}
+
+.user_reviews h6:after {
+    width: 50px;
+    height: 2px;
+    background: #1BBC9B;
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    border-radius: 50px;
+}
+
+.add_photos.position-relative input {
+    height: 140px;
+    opacity: 0;
+    position: relative;
+    z-index: 999;
+}
+
+.add_photo_uploader {
+    width: 100%;
+    height: 140px;
+    background: #F6FCFF;
+    border: 1px dashed #1BBC9B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    border-radius: 5px;
+}
+
+.add_photo_uploader p {
+    color: #1BBC9B;
+    font-size: 16px;
+}
+
+.add_photo_uploader svg path {
+    stroke: #1BBC9B;
+}
+
+.added_image {
+    border-radius: 5px;
+}
+
+.delete_icon {
+    position: absolute;
+    right: -6px;
+    top: -6px;
+    cursor: pointer;
+}
+
+.uploaded_image_size .added_image {
+    width: 100%;
+    height: 100%;
+}
+
+.uploaded_image_size {
+    width: 100%;
+    height: 140px;
+}
+
+.reply-main span {
+    position: absolute;
+    right: 30px;
+    top: 12px;
+}
+
+@media (max-width: 767px) {
+    .message_action_btn {
+        width: 95% !important;
+    }
+    .reply-main span {
+        position: absolute;
+        right: 30px;
+        top: 13px;
+    }
+    .w-sm-100 {
+        width: 100% !important;
+    }
+    .messages_left_side .media {
+        margin: 5px;
+    }
+    .chatbox_show {
+        display: block !important;
+        margin: 20px 0 80px 0;
+    }
+}
+
+.chat-overlay {
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 9999;
+    overflow-y: hidden;
+    position: relative;
+}
+
+.active_chat {
+    background: #f2f2f2;
+}
+
+.reply-main span.videocallicn {
+    position: absolute;
+    right: auto;
+    top: 0;
+    left: 22px;
+    bottom: 0;
+    margin: auto;
+    height: fit-content;
+}
+
+.reply-main input {
+    padding: 25px 51px 25px 51px !important;
+}
+
+.content_wrapper {
+    padding: 35px 0 !important;
+}
+
+.content_wrapper {
+    padding: 35px 0 !important;
+}
+
+.no-chat-bax {
+    width: 100%;
+    h2 {
+        font-size: 26px;
+        color: #484848;
+        margin: 60px 0 0 0;
+    }
+    p {
+        font-size: 16px;
+        color: rgb(116 116 116);
+        margin: 35px auto 70px auto;
+        max-width: 491px;
+        padding: 0 20px;
+    }
+    img {
+        max-width: 300px;
+    }
+}
+
+.custom-radio .custom-control-label{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    img{
+        width: 20px;
+        margin-left: 8px;
+    }
+}

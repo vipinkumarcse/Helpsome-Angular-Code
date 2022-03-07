@@ -1,0 +1,308 @@
+<app-header-company></app-header-company>
+
+<section class="hjel_mobile_text mt-4 d-block d-sm-none">
+    <p class="f_20 fw_medium text-center">Be helpful to yourself and others</p>
+</section>
+
+<section class="homepage_section d-none d-sm-block">
+    <!-- <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="homepage_section text-center fw_regular">
+                    <h2 class="text_black fw_medium mb-4">Find The Job That Fits Your Life.</h2>
+                    <p class="f_20 fw_light text_black">
+                        Each month, more than 7 million jobseekers turn to website in <br />
+                        their search for work, making over <br />
+                        160,000 applications every day.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</section>
+
+<section class="mt-4 mt-sm-n5">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 mx-auto">
+                <div class="post_filters">
+                    <form name="form1" #heroForm="ngForm" novalidate>
+                        <div class="row">
+                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                <mat-form-field appearance="fill" class="w-100 home_input_selector">
+                                    <mat-label>Select Location</mat-label>
+                                    <!-- <mat-select panelClass="homeSelect" [(ngModel)]="serviceArea" [(value)]="serviceArea" name="nametbtab2" #tbtab2 (ngModelChange)="getServiceListById(tbtab2.value)" #brndtab2="ngModel" required multiple> -->
+                                    <mat-select panelClass="homeSelect" [(ngModel)]="serviceArea" name="nametbtab2" #tbtab2 (ngModelChange)="getServiceListById(tbtab2.value)" #brndtab2="ngModel" required [disableOptionCentering]="true">
+                                        <mat-option *ngFor="let srv of serviceAreaAll " [value]="srv._id">
+                                            {{srv.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                <mat-form-field appearance="fill" class="w-100 home_input_selector">
+                                    <mat-label>Select Category</mat-label>
+                                    <mat-select panelClass="homeSelect" [(ngModel)]="serviceName" name="nametbtab3" #tbtab3 (ngModelChange)="getServiceListByName(tbtab3.value)" #brndtab3="ngModel" required>
+                                        <mat-optgroup *ngFor="let group of serviceNameAll" [label]="group.name">
+                                            <mat-option *ngFor="let srv of group.subcategrory" [value]="srv._id">
+                                                {{srv.serviceName}}
+                                            </mat-option>
+                                        </mat-optgroup>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-4 mb-1 mb-sm-0">
+                                <button mat-button class="f_18 w-100 bg_green text-white p-2" (click)="search()" [disabled]="!heroForm.valid">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="mt-4 mt-sm-6">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 mx-auto">
+                <div class="homepage_heading text-center fw_sitkab mb-6 mt-5 d-none d-sm-block">
+                    <h4>Explore Now</h4>
+                    <h1 class="text_black">Featured Jobs</h1>
+                </div>
+                <div class="" *ngIf="assignmentData && assignmentData?.length>0">
+
+                    <div class="categories-sec d-flex align-items-center justify-content-center pb-3">
+                        <div class="cat-item carpenter d-flex justify-content-center">
+                            <p>Carpenter</p>
+                        </div>
+                        <div class="cat-item transport d-flex justify-content-center">
+                            <p>Transport</p>
+                        </div>
+                        <div class="cat-item cleaning d-flex justify-content-center">
+                            <p>Cleaning</p>
+                        </div>
+                    </div>
+
+                    <div class="job_posts mb-4" [ngStyle]="{'border-color': data?.serviceType?.colorCode}" *ngFor="let data of assignmentData | paginate: { itemsPerPage: itemsPerPage, currentPage: p,totalItems:totalItems};let i=index">
+                        <div class="row">
+                            <div class="col-sm-2" (click)="openDetails(data)" data-toggle="modal" data-target="#exampleModalCenter_job_details">
+                                <div class="img-wrap">
+                                    <img src="assets/images/noimageavailable.png" *ngIf="data?.medias?.length<1" alt="" class="img-fluid" />
+                                </div>
+
+                                <ng-container *ngIf="data?.medias?.length==1">
+
+                                    <div class="img-wrap" *ngFor="let img of  data?.medias">
+                                        <img [src]="baseImgUrl+img.media" alt="" width="100%">
+                                    </div>
+
+                                </ng-container>
+                                <ng-container *ngIf="data?.medias?.length>1">
+                                    <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig" *ngIf="data?.medias?.length>0">
+                                        <div ngxSlickItem *ngFor="let img of  data?.medias" class="slide">
+                                            <div class="img-wrap">
+                                                <img [src]="baseImgUrl+img.media" alt="" width="100%">
+                                            </div>
+                                        </div>
+                                    </ngx-slick-carousel>
+                                </ng-container>
+                                <!-- <div class="owl-carousel owl-theme">
+                                
+
+                                <div class="post_image">
+                                    <img src="assets/images/cleaning-image.png" alt="" class="img-fluid" />
+                                </div>
+                                <div class="post_image">
+                                    <img src="assets/images/cleaning-image.png" alt="" class="img-fluid" />
+                                </div>
+                                
+                            </div> -->
+                            </div>
+                            <div class="col-sm-7" (click)="openDetails(data)" data-toggle="modal" data-target="#exampleModalCenter_job_details">
+                                <h5 class="f_20 fw_medium">{{data?.headline}}</h5>
+                                <p class="f_18 mb-2">
+                                    <span class="location_map mr-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14.223" height="18.964" viewBox="0 0 14.223 18.964">
+                                        <path
+                                            id="Icon_awesome-map-marker-alt"
+                                            data-name="Icon awesome-map-marker-alt"
+                                            d="M6.381,18.582C1,10.78,0,9.979,0,7.112a7.112,7.112,0,1,1,14.223,0c0,2.867-1,3.668-6.381,11.47a.889.889,0,0,1-1.462,0Zm.731-8.507A2.963,2.963,0,1,0,4.148,7.112,2.963,2.963,0,0,0,7.112,10.075Z"
+                                            transform="translate(0)"
+                                            fill="#464646"
+                                        />
+                                    </svg>
+                                </span> {{data?.assignmentArea?.name}}
+                                </p>
+                                <p class="text_gray fw_light mb-3 mb-sm-0 description_text position-relative" (click)="openDetails(data)" data-toggle="modal" data-target="#exampleModalCenter_job_details">
+                                    {{data?.description}}
+                                </p>
+                            </div>
+                            <div class="col-sm-3 align-self-center">
+                                <button mat-button class="f_18 w-100 bg_green text-white p-2 mb-3" (click)="openInterestedModal(data._id)">Interested</button>
+                                <button mat-button class="f_18 w-100 bg_green text-white p-2 not_interested_btn" (click)="openNotInterestedModal(data._id)">Not Interested</button>
+
+                                <!-- <button mat-button class="f_18 w-100 bg_green text-white p-2 mb-3" >Interested</button>
+                            <button mat-button class="f_18 w-100 bg_green text-white p-2 not_interested_btn">Not Interested</button> -->
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="d-flex justify-content-end my-4" *ngIf="assignmentData.length>0">
+                        <pagination-controls (pageChange)="p = $event;getHomePageData()"></pagination-controls>
+
+                    </div>
+
+                </div>
+
+                <div *ngIf="assignmentData?.length<1" class="  assignments_list">
+                    <p class="centerempty mb-4 job_posts">No featured Job available </p>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="sidemenu_fixed">
+    <span class="fixed_active">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30.298" height="33.331" viewBox="0 0 30.298 33.331">
+            <g id="Icon_feather-home" data-name="Icon feather-home" transform="translate(1.5 1.5)">
+              <path id="Path_28365" data-name="Path 28365" d="M4.5,13.616,18.149,3,31.8,13.616V30.3a3.033,3.033,0,0,1-3.033,3.033H7.533A3.033,3.033,0,0,1,4.5,30.3Z" transform="translate(-4.5 -3)" fill="none" stroke="#1bbc9b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+              <path id="Path_28366" data-name="Path 28366" d="M13.5,33.165V18h9.1V33.165" transform="translate(-4.401 -2.835)" fill="none" stroke="#1bbc9b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+            </g>
+        </svg>
+    </span>
+
+    <!-- <span class="messageunread unread" [ngClass]="{'messageunread' : messageUnseenVal>0}" routerLink="/company/messagecompany"> -->
+    <span class="" [ngClass]="{'messageunread' : messageUnseenVal>0}" routerLink="/company/messagecompany">
+
+     
+        <svg xmlns="http://www.w3.org/2000/svg" width="32.161" height="32.161" viewBox="0 0 32.161 32.161" >
+            <path id="Icon_feather-message-square" data-name="Icon feather-message-square" d="M33.661,23.941a3.24,3.24,0,0,1-3.24,3.24H10.98L4.5,33.661V7.74A3.24,3.24,0,0,1,7.74,4.5H30.421a3.24,3.24,0,0,1,3.24,3.24Z" transform="translate(-3 -3)" fill="none" stroke="#1bbc9b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+          </svg>
+    </span>
+
+    <span class="" routerLink="/company/profilecompany">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28.992" height="32.242" viewBox="0 0 28.992 32.242">
+            <g id="Icon_feather-user" data-name="Icon feather-user" transform="translate(1.5 1.5)">
+              <path id="Path_28367" data-name="Path 28367" d="M31.992,32.247V29a6.5,6.5,0,0,0-6.5-6.5h-13A6.5,6.5,0,0,0,6,29v3.249" transform="translate(-6 -3.006)" fill="none" stroke="#1bbc9b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+              <path id="Path_28368" data-name="Path 28368" d="M25,11a6.5,6.5,0,1,1-6.5-6.5A6.5,6.5,0,0,1,25,11Z" transform="translate(-5.502 -4.5)" fill="none" stroke="#1bbc9b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+            </g>
+          </svg>
+    </span>
+</section>
+
+<app-footercompany></app-footercompany>
+
+<!-- Apply Job popup starts -->
+
+<div class="modal fade custom_modal" id="exampleModalCenter_apply_job" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header position-relative px-2 px-sm-3">
+                <h5 class="modal-title text-center f_22 fw_medium w-100" id="exampleModalLongTitle">{{AlertJobText}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body px-2 px-sm-3">
+                <form name="form2" #heroForm1="ngForm" novalidate>
+                    <mat-label class="d-block mb-2">Description</mat-label>
+                    <mat-form-field appearance="fill" class="w-100 custom_textarea">
+                        <!-- <textarea matInput placeholder="Enter Description" [value]="description" name="ContactPersonDescription" type="text" class="form-control" [(ngModel)]="description" #iddescription="ngModel" pattern="^[A-Za-zăâîșțĂÂÎȘȚ\s-,.]*[A-Za-zăâîșțĂÂÎȘȚ-][A-Za-zăâîșțĂÂÎȘȚ\s-]*$"
+                            required></textarea> -->
+                        <textarea matInput placeholder="Enter Description" [value]="description" name="ContactPersonDescription" type="text" class="form-control" [(ngModel)]="description" #iddescription="ngModel" required></textarea>
+                    </mat-form-field>
+                    <div *ngIf="iddescription.errors && (iddescription.dirty || iddescription.touched)" class="error_main_div">
+                        <div [hidden]="!iddescription.errors.required" class="error_message">
+                            Description is Mandatory
+                        </div>
+                        <div [hidden]="!iddescription.errors.pattern" class="error_message">
+                            Invalid Description
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer px-2 px-sm-3">
+                <button mat-button class="f_18 w-100 bg_green text-white p-2" [disabled]="!heroForm1.valid" (click)="submitFeedback()">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Apply Job popup ends -->
+
+<!-- Job Details popup starts -->
+
+<div class="modal fade custom_modal" id="exampleModalCenter_job_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header position-relative px-2 px-sm-3">
+                <h5 class="modal-title text-center f_22 fw_medium w-100" id="exampleModalLongTitle">Job Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body px-2 px-sm-3 text-center">
+                <!-- <div class="owl-carousel owl-theme">
+                    <div class="post_image" *ngFor="let img of detailsData?.medias">
+                        <img [src]="baseImgUrl+img.media" alt="" class="img-fluid" />
+                    </div>
+                    
+                </div> -->
+                <div class="img-wrap w-100">
+                    <img src="assets/images/noimageavailable.png" alt="" class="img-fluid mx-auto" *ngIf="detailsData?.medias?.length<1" />
+                </div>
+                <ng-container *ngIf="detailsData?.medias?.length==1">
+                    <div class="img-wrap w-100" *ngFor="let img of detailsData?.medias">
+                        <img [src]="baseImgUrl+img.media" alt="" width="100%">
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="detailsData?.medias?.length>1">
+                    <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                        <ng-container *ngIf="showcarsuel">
+                            <div ngxSlickItem *ngFor="let img of detailsData?.medias" class="slide">
+                                <div class="img-wrap w-100">
+                                    <img [src]="baseImgUrl+img.media" alt="" width="100%">
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ngx-slick-carousel>
+                </ng-container>
+
+
+
+            </div>
+            <div class="modal-footer action_buttons justify-content-between px-2 px-sm-3">
+                <!-- <button mat-button class="f_18 bg_green text-white p-2 mb-3 mb-sm-0" >Interested</button>
+                <button mat-button class="f_18 bg_green text-white p-2 not_interested_btn">Not Interested</button> -->
+                <button mat-button class="f_18 bg_green text-white p-2 mb-3 mb-sm-0" (click)="openInterestedModal(detailsData._id)">Interested</button>
+                <button mat-button class="f_18 bg_green text-white p-2 not_interested_btn" (click)="openNotInterestedModal(detailsData._id)">Not Interested</button>
+
+            </div>
+            <div class="descr text-black text-center">
+                <p class="fw_medium mb-1 mt-2">Description</p>
+                <p class="mb-3">{{detailsData?.description}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Job Details popup ends -->
+
+<div *ngIf="isLoading">
+    <div class="spinner_overlay"></div>
+    <div class="loader-container">
+        <div class="loader dots-wave">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+</div>

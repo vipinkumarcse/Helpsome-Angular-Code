@@ -1,0 +1,36 @@
+.local {
+  right: 1rem;
+  bottom: 1rem;
+  width: 100%;
+  height: calc(100vh - 60px);
+  // border-radius: 5px;
+  overflow: hidden;
+  z-index: 1;
+}
+.red-bg{background:#D10000!important;}
+
+.remote {
+  top: 10;
+  left: 10;
+  width: 100vw;
+  height: calc(100vh - 60px);
+}
+.camera-controls{
+  width: 290px;
+  bottom:5%;
+  left:0;
+  right:0;
+  margin:0 auto;
+}
+.video-call-options a{
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+.video-call-options a img{
+  max-width: 100%;
+}

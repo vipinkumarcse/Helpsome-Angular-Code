@@ -1,0 +1,16 @@
+{
+  "List_Countries": [
+
+    {
+      "CountryId": 62,
+      "CountryName": "India",
+      "PhoneCode": "+91"
+    },
+
+    {
+      "CountryId": 106,
+      "CountryName": "Norway",
+      "PhoneCode": "+47"
+    }
+  ]
+}

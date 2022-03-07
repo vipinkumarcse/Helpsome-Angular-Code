@@ -1,0 +1,374 @@
+<header class="splash_top_bar splash_mobile_bar mb-sm-0 mb-4">
+    <img src="assets/images/logo_white.svg" alt="logo" class="img-fluid d-sm-none d-block" />
+</header>
+<section class="login_backimage d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-lg-5 ml-7">
+                <h4 class="text_black mb-4 fw_medium f_26">Create New Account</h4>
+                <div class="login_form">
+                    <div class="signup_form_height pr-2" >
+                        <mat-label class="text_2f fw_regular ml-0">Select Your Type</mat-label>
+                       
+                        <mat-tab-group class="signup_tabs mt-2">
+                            
+                            <mat-tab label="Private Company" class="mb-2">
+                                
+                                    <ng-container *ngIf="!nextScreen">
+                                        <form name="form33" #heroForm33="ngForm" novalidate>
+                                    <mat-form-field floatLabel="never" appearance="fill" class="w-100 bg-none custom_input mb-1">
+                                        <label>Organization Number</label>
+                                        <input matInput placeholder="Enter number"   pattern="^[^\s]+(\s.*)?$" name="org" [ngModel]="orgNUmData | formatPhone" (ngModelChange)="orgNUmData = $event" [minlength]="11" [maxlength]="11"  (keypress)="numberOnly($event)" #orgval="ngModel" required />
+                                        
+                                    </mat-form-field>
+                                    <div *ngIf="orgval.errors  && (orgval.dirty || orgval.touched)" class="error_main_div">
+                                        <div [hidden]="!orgval.errors.required" class="error_message">
+                                            Organization Number is Mandatory
+                                        </div>
+                                        <div [hidden]="!orgval.errors.pattern" class="error_message">
+                                            Invalid Organization Number 
+                                        </div>
+
+                                        <div [hidden]="!orgval.errors.minlength" class="error_message">
+                                            Invalid Organization Number 
+                                        </div>
+                                        <div [hidden]="!orgval.errors.maxlength" class="error_message">
+                                            Invalid Organization Number 
+                                        </div>
+                                    </div>
+                                    <mat-form-field floatLabel="never" appearance="fill" class="w-100 bg-none custom_input mb-1">
+                                        <label>Company Name</label>
+                                        <input matInput placeholder="Enter company name" pattern="^[^\s]+(\s.*)?$" name="comp" [(ngModel)]="CompanyNameData" #compval="ngModel" required />
+                                        
+                                    </mat-form-field>
+                                    <div *ngIf="compval.errors  && (compval.dirty || compval.touched)" class="error_main_div">
+                                        <div [hidden]="!compval.errors.required" class="error_message">
+                                            Company Name is Mandatory
+                                        </div>
+                                        <div [hidden]="!compval.errors.pattern" class="error_message">
+                                            Invalid Company Name 
+                                        </div>
+                                    </div>
+                                    <mat-form-field appearance="fill" class="w-100 custom_input mb-1">
+                                        <label>Industry Sector</label>
+                                       
+
+                                        <mat-select [(ngModel)]="IndustryData" name="nametbtab2" placeholder="Select sector" #tbtab2 (ngModelChange)="getServiceListById(tbtab2.value)" #brndtab2="ngModel" required>
+                                            <mat-option *ngFor="let srv of ServicesData " [value]="srv._id">
+                                                {{srv.serviceTypeName}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                    
+                                    <mat-label class="mb-2 d-block f_15 fw_regular ml-0 text_2f" *ngIf="SelectedServiceListData?.length>0">Select Service Name</mat-label>
+                                    <ng-container *ngFor="let tta of SelectedServiceListData;let i=index;">
+                                        <mat-checkbox
+                                            [ngModelOptions]="{standalone: true}"
+                                            [checked]="tta.State"
+                                            [(ngModel)]="tta.State"
+                                            name="test{{i}}"
+                                            (change)="onPermissionCheckChanged($event,tta._id)"
+                                            class="example-margin fw_regular mr-2"
+                                        >
+                                            <span>{{tta.serviceName}}</span>
+                                        </mat-checkbox>
+                                    </ng-container>
+
+                                    
+
+                                    <button mat-button class="f_18 w-100 bg_green text-white mt-3 p-2" [disabled]="!heroForm33.valid" (click)="next()">Next</button>
+                                </form>
+                                </ng-container>
+
+                                    <!-- Next slide starts -->
+
+                                    <!-- Service area -->
+                                    <ng-container id="nextscreencontent" *ngIf="nextScreen">
+                                        <form name="form1" #heroForm="ngForm" novalidate>
+                                       
+                                    <span class="back_btn my-3 d-block" style="position: inherit;" (click)="previous()">
+                                        <svg height="18.136" viewBox="0 0 11.058 18.136" width="11.058" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-uvf-c18="" d="M14.584,15.26,21.9,8.4a1.234,1.234,0,0,0,0-1.83,1.455,1.455,0,0,0-1.958,0l-8.292,7.769a1.236,1.236,0,0,0-.04,1.787l8.327,7.823a1.457,1.457,0,0,0,1.958,0,1.234,1.234,0,0,0,0-1.83Z" data-name="Icon ionic-ios-arrow-back" fill="#212121" id="Icon_ionic-ios-arrow-back" transform="translate(-11.251 -6.194)"></path>
+                                        </svg>
+                                    </span>
+                                    <div class="mb-3 signup_tabs">
+                                        <mat-label class="mb-2 d-block f_15 fw_regular ml-0 text_2f">Select Your Area</mat-label>
+
+                                        <ng-container *ngFor="let ttarea of areaArray;let i=index;">
+
+                                            <mat-checkbox  [ngModelOptions]="{standalone: true}"
+                                            [checked]="ttarea.State"
+                                            [(ngModel)]="ttarea.State"
+                                            name="areaname{{i}}"
+                                            (change)="onPermissionCheckChangedArea($event,ttarea._id)" class="example-margin fw_regular mr-2">
+                                                <span>{{ttarea.name}}</span>
+                                            </mat-checkbox>
+                                        </ng-container>
+                                       
+            
+                                    </div>
+
+
+                                    <mat-form-field floatLabel="never" appearance="fill" class="w-100 bg-none custom_input mb-1 mt-2">
+                                        <label>Email Address</label>
+                                        <input
+                                            matInput
+                                            placeholder="Enter email address"
+                                            [value]="EmailEntered"
+                                            name="ContactPersonEmailId"
+                                            type="text"
+                                            class="form-control"
+                                            [(ngModel)]="EmailEntered"
+                                            #id="ngModel"
+                                            pattern="^([\w\-\.]+)@((\[([0-9]{1,3}\.){3}[0-9]{1,3}\])|(([\w\-]+\.)+)([a-zA-Z]{2,4}))$"
+                                            required
+                                        />
+                                      
+                                    </mat-form-field>
+                                    <div *ngIf="id.errors  && (id.dirty || id.touched)" class="error_main_div">
+                                        <div [hidden]="!id.errors.required" class="error_message">
+                                             E-Mail Id is Mandatory
+                                        </div>
+                                        <div [hidden]="!id.errors.pattern" class="error_message">
+                                            Email Id invalid
+                                        </div>
+                                    </div>
+                                    <div class="row m-0">
+                                        <div class="col-5 col-sm-5 pl-0">
+                                            <mat-form-field floatLabel="never" appearance="fill" class="w-100 bg-none custom_input mb-1">
+                                                <label>Select Code</label>
+                                                <mat-select placeholder="Country Code" [(value)]="Selected_countrycode" name="codevalue" (selectionChange)="onZipCodeChange($event)" required>
+                                                    <input class="time-zone-input" placeholder="Search Code" name="serchinput" (keyup)="onKeypressedZip($event.target.value)" />
+                                                  
+
+                                                    <mat-option *ngFor="let bank of filteredBanks " [value]="bank.PhoneCode">
+                                                         {{bank.CountryName}} {{bank.PhoneCode}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-7 col-sm-7 pr-0">
+                                            <mat-form-field floatLabel="never" appearance="fill" class="w-100 bg-none custom_input mb-1">
+                                                <label>Phone Number</label>
+                                                <input
+                                                    matInput
+                                                    placeholder="Enter phone number"
+                                                    (ngModelChange)="phoneEntered = $event"
+                                                    name="ContactPersonPhone"
+                                                    type="tel"
+                                                    class="form-control"
+                                                    [ngModel]="phoneEntered | formatphonenew"
+                                                    [minlength]="10"
+                                                    [maxlength]="13"
+                                                    #idphone="ngModel"
+                                                    (keypress)="numberOnly($event)"
+                                                    
+                                                    required
+                                                />
+                                              
+                                            </mat-form-field>
+                                            <div *ngIf="idphone.errors  && (idphone.dirty || idphone.touched)" class="error_main_div">
+                                                <div [hidden]="!idphone.errors.required" class="error_message">
+                                                    Phone number is Mandatory
+                                                </div>
+                                                <div [hidden]="!idphone.errors.minlength" class="error_message">
+                                                    Phone number invalid
+                                                </div>
+                                                <div [hidden]="!idphone.errors.maxlength" class="error_message">
+                                                    Phone number invalid
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <button mat-button class="f_18 w-100 bg_green text-white mt-3 p-2" (click)="onSignupComapny()" [disabled]="!heroForm.valid" >Signup</button>
+                                </form>
+                                </ng-container>
+                                    <!-- Next slide end -->
+                                
+                            </mat-tab>
+                           
+                            <mat-tab label="Customer" class="mb-2">
+                                <form name="form2" #heroForm2="ngForm" novalidate>
+                                    <mat-form-field floatLabel="never" appearance="fill" class="w-100 bg-none custom_input mb-1">
+                                        <label>Full Name</label>
+                                        <input matInput placeholder="Enter name" pattern="^[^\s]+(\s.*)?$" name="fullnamevalue"  [(ngModel)]="fullname"
+                                        #idcustfullname="ngModel"
+                                        
+                                        required/>
+                                       
+                                    </mat-form-field>
+                                    <div *ngIf="idcustfullname.errors  && (idcustfullname.dirty || idcustfullname.touched)" class="error_main_div">
+                                        <div [hidden]="!idcustfullname.errors.required" class="error_message">
+                                             Full Name is Mandatory
+                                        </div>
+                                        <div [hidden]="!idcustfullname.errors.pattern" class="error_message">
+                                            Invalid Full Name 
+                                       </div>
+
+                                    </div>
+
+                                   
+
+                                    
+                                    <mat-form-field floatLabel="never" appearance="fill" class="w-100 bg-none custom_input mb-1 mt-2">
+                                        <label>Email Address</label>
+                                        <input
+                                            matInput
+                                            placeholder="Enter email address"
+                                            [value]="EmailEnteredcust1"
+                                            name="ContactPersonEmailIdcust"
+                                            type="text"
+                                            class="form-control"
+                                            [(ngModel)]="EmailEnteredcust1"
+                                            #idcust="ngModel"
+                                            pattern="^([\w\-\.]+)@((\[([0-9]{1,3}\.){3}[0-9]{1,3}\])|(([\w\-]+\.)+)([a-zA-Z]{2,4}))$"
+                                            required
+                                        />
+                                        
+                                    </mat-form-field>
+                                    <div *ngIf="idcust.errors && (idcust.dirty || idcust.touched)" class="error_main_div">
+                                        <div [hidden]="!idcust.errors.required" class="error_message">
+                                             E-Mail Id is Mandatory
+                                        </div>
+                                        <div [hidden]="!idcust.errors.pattern" class="error_message">
+                                            Email Id invalid
+                                        </div>
+                                    </div>
+
+                                    <div class="row m-0">
+                                        <div class="col-5 col-sm-5 pl-0">
+                                            <mat-form-field floatLabel="never" appearance="fill" class="w-100 bg-none custom_input mb-1">
+                                                <label>Select Code</label>
+                                                <mat-select placeholder="Country Code" [(value)]="Selected_countrycodecust1" name="codevaluecust1" (selectionChange)="onZipCodeChangecust1($event)" required>
+                                                    <input class="time-zone-input" placeholder="Search Code" name="serchinputcust1" (keyup)="onKeypressedZipcust1($event.target.value)" />
+                                                    <!-- <mat-option>
+                <ngx-mat-select-search [formControl]="bankFilterCtrl" [placeholderLabel]="'Search'" [noEntriesFoundLabel]="'No Record Found'"></ngx-mat-select-search>
+            </mat-option> -->
+
+                                                    <mat-option *ngFor="let bank of filteredBankscust1 " [value]="bank.PhoneCode">
+                                                         {{bank.CountryName}} {{bank.PhoneCode}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-7 col-sm-7 pr-0">
+                                            <mat-form-field floatLabel="never" appearance="fill" class="w-100 bg-none custom_input mb-1">
+                                                <label>Phone Number</label>
+                                                <input
+                                                    matInput
+                                                    placeholder="Enter phone number"
+                                                    (ngModelChange)="phoneEnteredcust1 = $event"
+                                                  
+                                                    name="ContactPersonPhonecust1"
+                                                    type="tel"
+                                                    class="form-control"
+                                                    [ngModel]="phoneEnteredcust1 | formatphonenew"
+                                                    #idphonecust1="ngModel"
+                                                    [minlength]="10"
+                                                    [maxlength]="13"
+                                                    (keypress)="numberOnly($event)"
+                                                    
+                                                    required
+                                                />
+                                                
+                                            </mat-form-field>
+                                            <div *ngIf="idphonecust1.errors && (idphonecust1.dirty || idphonecust1.touched)" class="error_main_div">
+                                                <div [hidden]="!idphonecust1.errors.required" class="error_message">
+                                                    Phone number is Mandatory
+                                                </div>
+                                                <div [hidden]="!idphonecust1.errors.minlength" class="error_message">
+                                                    Phone number invalid
+                                                </div>
+                                                <div [hidden]="!idphonecust1.errors.maxlength" class="error_message">
+                                                    Phone number invalid
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- <mat-form-field floatLabel="never" appearance="fill" class="w-100 bg-none custom_input mb-1">
+                                        <label>Phone Number</label>
+                                        <input matInput placeholder="Enter phone number" />
+                                    </mat-form-field> -->
+
+                                    <!-- <mat-form-field floatLabel="never" appearance="fill" class="w-100 bg-none custom_input mb-1">
+                                        <label>Confirm Phone Number</label>
+                                        <input matInput placeholder="Enter phone number" />
+                                    </mat-form-field> -->
+
+
+                                    <button mat-button class="f_18 w-100 bg_green text-white mt-3 p-2" (click)="onSignupCustomer()" [disabled]="!heroForm2.valid">Sign up</button>
+                                </form>
+                            </mat-tab>
+                          
+                        </mat-tab-group>
+
+                        
+
+                        <p class="text-center text_gray mt-4 mb-0">Have an account? <a href="#" class="text_green fw_medium" routerLink="/login" >Login</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Job Details popup starts -->
+
+<div class="modal fade custom_modal" id="exampleModalCenter_signup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <!-- <div class="modal-header position-relative px-2 px-sm-3">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> -->
+            <div class="modal-body px-2 px-sm-3 pb-0">
+                <div class="descr text-black">
+                    <!-- <img src="../../assets/images/signup.png" alt="img" class="img-fluid" /> -->
+                    <h4 class="text-center mt-3">Your account is created successfully. Admin needs to approve it.</h4>
+                </div>
+            </div>
+            <div class="modal-footer action_buttons justify-content-between px-2 px-sm-3 pt-1">
+                <button mat-button class="f_18 bg_green text-white p-2 w-60 mt-3 mx-auto" (click)="loginback()" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade custom_modal" id="exampleModalCenter_signup_cust" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <!-- <div class="modal-header position-relative px-2 px-sm-3">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> -->
+            <div class="modal-body px-2 px-sm-3 pb-0">
+                <div class="descr text-black">
+                    <!-- <img src="../../assets/images/signup.png" alt="img" class="img-fluid" /> -->
+                    <h4 class="text-center mt-3">Your account is created successfully. Go to login.</h4>
+                </div>
+            </div>
+            <div class="modal-footer action_buttons justify-content-between px-2 px-sm-3 pt-1">
+                <button mat-button class="f_18 bg_green text-white p-2 w-60 mt-3 mx-auto" (click)="loginbackcust()" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Job Details popup ends -->
+<div *ngIf="isLoading">
+    <div class="spinner_overlay"></div>
+    <div class="loader-container">
+        <div class="loader dots-wave">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+    </div>
+    </div>

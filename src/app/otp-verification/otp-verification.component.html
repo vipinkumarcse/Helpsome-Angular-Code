@@ -1,0 +1,45 @@
+<header class="splash_top_bar splash_mobile_bar mb-sm-0 mb-5">
+    <img src="assets/images/logo_white.svg" alt="logo" class="img-fluid   d-sm-none d-block" />
+</header>
+<section class="login_backimage d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5 ml-7">
+                <h4 class="text_black mb-4 fw_medium f_26">Verification Code!</h4>
+                <div class="login_form">
+                    <form>
+                        <p class="text-center f_18 mb-4 mb-sm-5">Enter code sent to your number <span class="d-block text_black ">{{countryCode}} {{phone | formatphonenew}}</span></p>
+                        <div class="otp_input d-flex justify-content-around">
+                            <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="{length:6,allowNumbersOnly:true,allowKeyCodes:true}">
+                            </ng-otp-input>
+                            <!--  <mat-form-field appearance="fill" >
+                                    <input matInput>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" >
+                                    <input matInput>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" >
+                                    <input matInput>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" >
+                                    <input matInput>
+                                </mat-form-field> -->
+                        </div>
+                        <button mat-button class="f_18 w-100 bg_green text-white mt-3 p-2" (click)="redirect()">Verify</button>
+                        <p class="text_green text-center fw_medium mt-4 mb-0" style="cursor: pointer;" (click)="resendOtp()">Resend Code</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div *ngIf="isLoading">
+    <div class="spinner_overlay"></div>
+    <div class="loader-container">
+        <div class="loader dots-wave">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,796 @@
+<app-header-customer class="d-none d-sm-block"></app-header-customer>
+
+<header class="splash_top_bar d-block d-sm-none">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-none flex-sm-row p-0 p-sm-2 justify-content-between">
+                    <span routerLink="/customers/uploadassignmentcustomer" class="d-none d-sm-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="11.729" height="20.516" viewBox="0 0 11.729 20.516">
+                            <path
+                                id="Icon_ionic-ios-arrow-back"
+                                data-name="Icon ionic-ios-arrow-back"
+                                d="M14.786,16.449l7.763-7.757a1.466,1.466,0,0,0-2.077-2.07l-8.795,8.789a1.463,1.463,0,0,0-.043,2.022l8.831,8.85a1.466,1.466,0,1,0,2.077-2.07Z"
+                                transform="translate(-11.251 -6.194)"
+                                fill="#fff"
+                            />
+                        </svg>
+                    </span>
+                    <a class="navbar-brand" href="#">
+                        <img src="assets/images/logo_white.svg" alt="logo" class="img-fluid" />
+                    </a>
+
+                    <span class="d-flex align-items-center p-0"> </span>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="my-4 my-sm-5 no-scroll-height">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 mx-auto p-2">
+                <div class="add_assignment_section pt-0 pt-sm-5" *ngIf="step==1">
+                    <h5 class="text-center position-relative mx-0 mx-sm-5">
+                        <span class="back_btn" data-toggle="modal" data-target="#confirmModal" data-backdrop="static" data-keyboard="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="11.058" height="18.136" viewBox="0 0 11.058 18.136">
+                                <path
+                                    id="Icon_ionic-ios-arrow-back"
+                                    data-name="Icon ionic-ios-arrow-back"
+                                    d="M14.584,15.26,21.9,8.4a1.234,1.234,0,0,0,0-1.83,1.455,1.455,0,0,0-1.958,0l-8.292,7.769a1.236,1.236,0,0,0-.04,1.787l8.327,7.823a1.457,1.457,0,0,0,1.958,0,1.234,1.234,0,0,0,0-1.83Z"
+                                    transform="translate(-11.251 -6.194)"
+                                    fill="#212121"
+                                />
+                            </svg>
+                        </span> Edit Assignment
+                    </h5>
+                    <div class="">
+                        <div class="mt-4 w_70 mx-auto">
+                            <p class="f_20 text_gray fw_light text-center">You can skip this step, but to attach the image we improve communication with potential contractors.</p>
+                            <form name="form33" #heroForm33="ngForm" novalidate>
+                                <div class="add_photos position-relative">
+                                    <input type="file" class="form-control" id="inputEmail4" accept="image/*" placeholder="Search Country" (change)="onFileChange($event)" multiple="" />
+                                    <div class="add_photo_uploader">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="21.5" height="21.5" viewBox="0 0 21.5 21.5">
+                                        <g id="Icon_feather-plus" data-name="Icon feather-plus" transform="translate(0.75 0.75)">
+                                            <path id="Path_3734" data-name="Path 3734" d="M18,7.5v20" transform="translate(-8 -7.5)" fill="none" stroke="#00b7fb" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
+                                            <path id="Path_3735" data-name="Path 3735" d="M7.5,18h20" transform="translate(-7.5 -8)" fill="none" stroke="#00b7fb" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
+                                        </g>
+                                    </svg>
+                                        <p class="mb-0 mt-2">Add Image file</p>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row mt-4">
+                                <!-- <div class="col-6 mb-4">
+                                            <div class="uploaded_image_size position-relative">
+                                                <img src="assets/images/dummy_image.png" alt="" class="img-fluid w-100 added_image">
+                                            <img src="assets/images/delete_image.svg" alt="" class="img-fluid delete_icon">
+                                            </div>
+                                            
+                                        </div> -->
+                                <!-- <ng-container *ngIf="images?.length>0">
+
+                                            <ngx-slick-carousel (init)="slickInit($event)" class="carousel" #slickModala="slick-carousel" [config]="slideConfig">
+                                                <ng-container *ngIf="showcarsuel">
+                                                <div  ngxSlickItem *ngFor="let img of images" class="slide" >
+                                                    <div class="uploaded_image_size "  >
+                                                        <img [src]="img" alt="" class="img-fluid w-100 added_image">
+                                                    
+                                                </div>
+                                                </div>
+                                            </ng-container>
+                                            </ngx-slick-carousel>
+
+                                        </ng-container> -->
+
+
+                                <!--     
+                                        <ng-container *ngIf="images?.length<1"><div  >
+                                            <div >
+                                                <div class="uploaded_image_size position-relative">
+                                                    <img src="assets/images/noimageavailable.png" alt="" class="img-fluid w-100 added_image">
+    
+                                                </div>
+                                                
+                                            </div>
+                                        </div></ng-container> -->
+                                <ng-container *ngIf="images?.length>0">
+                                    <div class="col-6 col-sm-4 mb-4 mb-sm-3" *ngFor="let image of images">
+                                        <div class="d-flex">
+                                            <div class="uploaded_image_size position-relative">
+                                                <img [src]="image" alt="" class="img-fluid w-100 added_image">
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </ng-container>
+
+                                <ng-container *ngIf="uploadedImages?.length>0">
+                                    <div class="col-6 col-sm-4 mb-4 mb-sm-3" *ngFor="let images of uploadedImages">
+                                        <div class="d-flex">
+                                            <div class="uploaded_image_size position-relative">
+                                                <img [src]="baseImgUrlAssignment+images" alt="" class="img-fluid w-100 added_image">
+                                                <img src="assets/images/delete_image.svg" (click)="removeImage(images)" alt="" class="img-fluid delete_icon">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </ng-container>
+
+                                <ng-container *ngIf="uploadedImages?.length<1 && images?.length<1">
+                                    <div class="col-6 col-sm-4 mb-4 mb-sm-3">
+                                        <div class="d-flex">
+                                            <div class="uploaded_image_size position-relative">
+                                                <img src="assets/images/noimageavailable.png" alt="" class="img-fluid w-100 added_image">
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </ng-container>
+
+
+
+                            </div>
+                            <button mat-button class="f_18 bg_green text-white mt-5 p-2 w-100" id="show" (click)="increementStep()">Continue</button>
+                        </div>
+                        <!-- 
+                        <div class="action_buttons mt-4">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mb-2" width="31" height="25.727" viewBox="0 0 31 25.727">
+                                    <g id="Icon_feather-camera" data-name="Icon feather-camera" transform="translate(1 1)">
+                                        <path
+                                            id="Path_31607"
+                                            data-name="Path 31607"
+                                            d="M30.5,25.591a2.636,2.636,0,0,1-2.636,2.636H4.136A2.636,2.636,0,0,1,1.5,25.591v-14.5A2.636,2.636,0,0,1,4.136,8.455H9.409L12.045,4.5h7.909l2.636,3.955h5.273A2.636,2.636,0,0,1,30.5,11.091Z"
+                                            transform="translate(-1.5 -4.5)"
+                                            fill="none"
+                                            stroke="#a8a8a8"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                        />
+                                        <path
+                                            id="Path_31608"
+                                            data-name="Path 31608"
+                                            d="M22.545,18.773A5.273,5.273,0,1,1,17.273,13.5,5.273,5.273,0,0,1,22.545,18.773Z"
+                                            transform="translate(-2.773 -5.591)"
+                                            fill="none"
+                                            stroke="#a8a8a8"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                        />
+                                    </g>
+                                </svg>
+                                Camera
+                            </span>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mb-2" id="image" width="27" height="27" viewBox="0 0 27 27">
+                                    <g id="Group_19170" data-name="Group 19170">
+                                        <g id="Group_19169" data-name="Group 19169">
+                                            <path
+                                                id="Path_31605"
+                                                data-name="Path 31605"
+                                                d="M24.469,0H2.531A2.531,2.531,0,0,0,0,2.531V24.469A2.531,2.531,0,0,0,2.531,27H24.469A2.531,2.531,0,0,0,27,24.469V2.531A2.531,2.531,0,0,0,24.469,0Zm.844,24.469a.844.844,0,0,1-.844.844H2.531a.844.844,0,0,1-.844-.844V2.531a.844.844,0,0,1,.844-.844H24.469a.844.844,0,0,1,.844.844Z"
+                                                fill="#a8a8a8"
+                                            />
+                                            <path
+                                                id="Path_31606"
+                                                data-name="Path 31606"
+                                                d="M94.312,242.071a.844.844,0,0,0-1.19,0l-1.941,1.941-3.62-3.62a.844.844,0,0,0-1.19,0L80.466,246.3a.844.844,0,0,0,.591,1.434H97.932a.844.844,0,0,0,.6-1.443Z"
+                                                transform="translate(-75.994 -227.483)"
+                                                fill="#a8a8a8"
+                                            />
+                                            <circle id="Ellipse_242" data-name="Ellipse 242" cx="2.615" cy="2.615" r="2.615" transform="translate(13.5 6.526)" fill="#a8a8a8" />
+                                        </g>
+                                    </g>
+                                </svg>
+                                Gallery
+                            </span>
+                        </div> -->
+                    </div>
+                </div>
+                <ng-container *ngIf="step==2">
+                    <div class="add_assignment_section pt-0 pt-sm-5">
+                        <h5 class="text-center position-relative mx-0 mx-sm-5">
+                            <span class="back_btn" (click)="decreementStep()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="11.058" height="18.136" viewBox="0 0 11.058 18.136">
+                                <path
+                                    id="Icon_ionic-ios-arrow-back"
+                                    data-name="Icon ionic-ios-arrow-back"
+                                    d="M14.584,15.26,21.9,8.4a1.234,1.234,0,0,0,0-1.83,1.455,1.455,0,0,0-1.958,0l-8.292,7.769a1.236,1.236,0,0,0-.04,1.787l8.327,7.823a1.457,1.457,0,0,0,1.958,0,1.234,1.234,0,0,0,0-1.83Z"
+                                    transform="translate(-11.251 -6.194)"
+                                    fill="#212121"
+                                />
+                            </svg>
+                        </span> Edit Assignment
+                        </h5>
+                        <!-- Add Assignment 1.2 section starts  -->
+
+                        <div class="mt-4 w_70 mx-auto pb-3">
+                            <form name="form2" #heroForm2="ngForm" novalidate>
+                                <div class="mb-4">
+                                    <mat-label class="mb-2 d-block f_18 fw_medium">Assignment Headline</mat-label>
+                                    <mat-form-field appearance="fill" class="w-100 bg-none custom_border_input">
+                                        <input matInput placeholder="Enter Headline" pattern="^[A-Za-zăâîșțĂÂÎȘȚ\s-]*[A-Za-zăâîșțĂÂÎȘȚ-][A-Za-zăâîșțĂÂÎȘȚ\s-]*$" name="headline" [(ngModel)]="headline" #headval="ngModel" required />
+                                    </mat-form-field>
+                                    <div *ngIf="headline?.errors  && (headline?.dirty || headline?.touched)" class="error_main_div">
+                                        <div [hidden]="!headline?.errors.required" class="error_message">
+                                            Headline is Mandatory
+                                        </div>
+                                        <div [hidden]="!headline?.errors?.pattern" class="error_message">
+                                            Invalid Headline
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <mat-label class="mb-2 d-block f_18 fw_medium">Description</mat-label>
+                                    <mat-form-field appearance="fill" class="w-100 bg-none custom_border_input">
+                                        <!-- <textarea matInput placeholder="Add your text" pattern="^[A-Za-zăâîșțĂÂÎȘȚ\s-]*[A-Za-zăâîșțĂÂÎȘȚ-][A-Za-zăâîșțĂÂÎȘȚ\s-]*$" name="desc" [(ngModel)]="description" #descval="ngModel" required></textarea> -->
+                                        <textarea matInput placeholder="Add your text" name="desc" [(ngModel)]="description" #descval="ngModel" required></textarea>
+
+                                    </mat-form-field>
+                                    <div *ngIf="descval?.errors  && (descval?.dirty || descval?.touched)" class="error_main_div">
+                                        <div [hidden]="!descval?.errors.required" class="error_message">
+                                            Description is Mandatory
+                                        </div>
+                                        <!-- <div [hidden]="!descval?.errors.pattern" class="error_message">
+                                            Invalid Description
+                                        </div> -->
+
+
+                                    </div>
+                                </div>
+
+                                <!-- <div class="mb-4 signup_tabs">
+                            <mat-label class="mb-2 d-block f_18 fw_medium">Select Your Area</mat-label>
+                            <mat-checkbox class="example-margin fw_regular mr-2">
+                                <span>Agder</span>
+                            </mat-checkbox>
+
+                            <mat-checkbox class="example-margin fw_regular mr-2">
+                                <span>Inland</span>
+                            </mat-checkbox>
+
+                            <mat-checkbox class="example-margin fw_regular mr-2">
+                                <span>MoreogRomsdal</span>
+                            </mat-checkbox>
+
+                            <mat-checkbox class="example-margin fw_regular mr-2">
+                                <span>Nordland</span>
+                            </mat-checkbox>
+                            
+                            <mat-checkbox class="example-margin fw_regular mr-2">
+                                <span>Oslo</span>
+                            </mat-checkbox>
+
+                            <mat-checkbox class="example-margin fw_regular mr-2">
+                                <span>Rogaland</span>
+                            </mat-checkbox>
+
+                            <mat-checkbox class="example-margin fw_regular mr-2">
+                                <span>Svalbard</span>
+                            </mat-checkbox>
+
+                            <mat-checkbox class="example-margin fw_regular mr-2">
+                                <span>Troms and Finnmark</span>
+                            </mat-checkbox>
+
+                            <mat-checkbox class="example-margin fw_regular mr-2">
+                                <span>Trondelog</span>
+                            </mat-checkbox>
+
+                            <mat-checkbox class="example-margin fw_regular mr-2">
+                                <span>Vestfold and Telemark</span>
+                            </mat-checkbox>
+
+                            <mat-checkbox class="example-margin fw_regular mr-2">
+                                <span>Vestland</span>
+                            </mat-checkbox>
+
+                            <mat-checkbox class="example-margin fw_regular mr-2">
+                                <span>Viken</span>
+                            </mat-checkbox>
+                        </div> -->
+
+                                <div class="mb-4 ">
+                                    <!-- <mat-label class="mb-2 d-block f_18 fw_medium">Select the category for the assignment</mat-label>
+                            <div class="row">
+                                <div class="col-4 pr-2 pr-sm-4">
+                                    <div class="assignment_category" id="show2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25.931" height="25.997" viewBox="0 0 25.931 25.997">
+                                            <g id="settings_2_" data-name="settings (2)" transform="translate(-0.372 -0.001)">
+                                              <path id="Path_31612" data-name="Path 31612" d="M138.948,12.463a2.158,2.158,0,0,1,2.5.393l.875-.875a6.165,6.165,0,0,0,8.127-6.809.562.562,0,0,0-.951-.307l-1.3,1.3a2.71,2.71,0,0,1-3.832-3.832l1.3-1.3a.561.561,0,0,0-.308-.951A6.163,6.163,0,0,0,138.585,8.3l-1.9,1.9Z" transform="translate(-124.225 0)" fill="#fff"/>
+                                              <path id="Path_31613" data-name="Path 31613" d="M11.264,156.162l-2.251-2.251L1.14,161.783a2.621,2.621,0,0,0,3.707,3.707l6.786-6.786A2.159,2.159,0,0,1,11.264,156.162Z" transform="translate(0 -140.26)" fill="#fff"/>
+                                              <path id="Path_31614" data-name="Path 31614" d="M16.522,30.074a.825.825,0,0,0-1.166,0l-.47.47L6.515,22.172l.391-.391a.825.825,0,0,0-.094-1.247L3.4,18.019a.825.825,0,0,0-1.072.081L.874,19.55a.825.825,0,0,0-.081,1.072l2.515,3.416a.825.825,0,0,0,1.247.094l.391-.391,8.371,8.371-.5.5a.824.824,0,0,0,0,1.166L20.538,41.5A2.621,2.621,0,0,0,24.245,37.8Z" transform="translate(-0.237 -16.273)" fill="#fff"/>
+                                            </g>
+                                          </svg>
+                                        <span class="d-block mt-2">Craft</span>
+                                    </div>
+                                </div>
+                                <div class="col-4 pr-2 pr-sm-4">
+                                    <div class="assignment_category2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="34.911" height="23" viewBox="0 0 34.911 23">
+                                            <path id="car_3_" data-name="car (3)" d="M34.67,74.2a.71.71,0,0,0-.623-.429h-3.19a.71.71,0,0,0-.623.429,5.166,5.166,0,0,0-.182.646l-2.131-5.9a2.469,2.469,0,0,0-2.316-1.625H9.308a2.47,2.47,0,0,0-2.316,1.625l-2.131,5.9a5.182,5.182,0,0,0-.182-.647.71.71,0,0,0-.623-.429H.866a.71.71,0,0,0-.623.429,3.142,3.142,0,0,0,0,2.42.71.71,0,0,0,.623.429h3.2l-.048.133A1.635,1.635,0,0,0,2.9,78.732V89.538a.786.786,0,0,0,.786.786H7.64a.786.786,0,0,0,.786-.786V85.711H26.487v3.827a.786.786,0,0,0,.786.786H31.23a.786.786,0,0,0,.786-.786V78.732A1.636,1.636,0,0,0,30.9,77.18l-.048-.133h3.2a.71.71,0,0,0,.623-.429A3.143,3.143,0,0,0,34.67,74.2ZM9.609,70.217H25.3L27.789,77.1H7.122Zm.438,11.725H6.736a1.286,1.286,0,1,1,0-2.572h3.31a1.286,1.286,0,1,1,0,2.572Zm18.13,0h-3.31a1.286,1.286,0,1,1,0-2.572h3.31a1.286,1.286,0,1,1,0,2.572Z" transform="translate(-0.001 -67.324)" fill="#fff" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"/>
+                                          </svg>
+                                        <span class="d-block mt-2" id="show2">Transport</span>
+                                    </div>
+                                </div>
+                                <div class="col-4 pr-2 pr-sm-4">
+                                    <div class="assignment_category3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30.769" height="29.012" viewBox="0 0 30.769 29.012">
+                                            <g id="vacuum" transform="translate(0 -14.76)">
+                                              <path id="Path_31609" data-name="Path 31609" d="M27.343,15.825a9.593,9.593,0,0,0-8.5-.15c-2.665,1.177-4.585,3.772-5.721,5.722a1.135,1.135,0,0,0-1.012,1.962c-.1.23-.167.385-.191.446L6.4,35.917a1.136,1.136,0,0,0-.98,2.05l.038.019L4.221,40.713H1.138a1.138,1.138,0,1,0,0,2.276H6.829a1.138,1.138,0,1,0,0-2.276H6.722l.789-1.734a1.131,1.131,0,0,0,.929-2.04l5.714-12.551a1.135,1.135,0,0,0,1.035-2.017,11.238,11.238,0,0,1,4.573-4.613,7.392,7.392,0,0,1,6.443.039,4.294,4.294,0,0,1,2.161,3.453c.318,2.925.048,4.886-.8,5.83a2.092,2.092,0,0,1-.252.232v2.548a4.479,4.479,0,0,0,1.946-1.26c1.316-1.465,1.762-3.95,1.367-7.6A6.625,6.625,0,0,0,27.343,15.825Z" transform="translate(0 0)" fill="#fff"/>
+                                              <path id="Path_31610" data-name="Path 31610" d="M239.943,211.307a4.9,4.9,0,0,1,2.077.464v-9c0-.629.06-.569-.569-.569h-2.229c-.629,0-6.971.522-8.647,8.8l-1.075,6.846c0,.629.509,1.423,1.138,1.423h5.4a4.936,4.936,0,0,1,3.9-7.967Z" transform="translate(-215.842 -176.285)" fill="#fff"/>
+                                              <path id="Path_31611" data-name="Path 31611" d="M347.471,375.427a3.842,3.842,0,0,0-.569-.455,3.8,3.8,0,1,0,.273,6.172,3.828,3.828,0,0,0,.8-.859,3.786,3.786,0,0,0,.063-4.156A3.888,3.888,0,0,0,347.471,375.427Zm-2.646.82a1.909,1.909,0,1,1-1.909,1.909A1.909,1.909,0,0,1,344.825,376.247Z" transform="translate(-320.724 -338.19)" fill="#fff"/>
+                                            </g>
+                                          </svg>
+                                        <span class="d-block mt-2" id="show2">Cleaning</span>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                                    <mat-form-field appearance="fill" class="w-100 custom_input mb-1">
+                                        <label>Select the category for the assignment</label>
+
+
+                                        <mat-select [(ngModel)]="IndustryData" name="nametbtab2" placeholder="Select sector" #tbtab2 (ngModelChange)="getServiceListById(tbtab2.value)" #brndtab2="ngModel" required>
+                                            <mat-option *ngFor="let srv of ServicesData " [value]="srv._id">
+                                                {{srv.serviceTypeName}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+
+                                </div>
+                                <div class="mb-4 signup_tabs">
+                                    <mat-label class="mb-2 d-block f_15 fw_regular ml-0 text_2f" *ngIf="SelectedServiceListData?.length>0">Select Craft Service</mat-label>
+                                    <ng-container *ngFor="let tta of SelectedServiceListData;let i=index;">
+                                        <mat-checkbox [ngModelOptions]="{standalone: true}" [checked]="tta.State" [(ngModel)]="tta.State" name="test{{i}}" (change)="onPermissionCheckChanged($event,tta._id)" class="example-margin fw_regular mr-2">
+                                            <span>{{tta.serviceName}}</span>
+                                        </mat-checkbox>
+                                    </ng-container>
+
+                                </div>
+
+                                <button mat-button class="f_18 bg_green text-white mt-5 p-2 w-100" [disabled]="!heroForm2.valid" (click)="checkstep2()">Continue</button>
+                            </form>
+                        </div>
+
+                        <!-- Add Assignment 1.2 section ends  -->
+                    </div>
+                </ng-container>
+
+                <div id="step3content" class="add_assignment_section pt-0 pt-sm-5 " *ngIf="step==3">
+                    <h5 class="text-center position-relative mx-0 mx-sm-5">
+                        <span class="back_btn" (click)="decreementStep()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="11.058" height="18.136" viewBox="0 0 11.058 18.136">
+                                <path
+                                    id="Icon_ionic-ios-arrow-back"
+                                    data-name="Icon ionic-ios-arrow-back"
+                                    d="M14.584,15.26,21.9,8.4a1.234,1.234,0,0,0,0-1.83,1.455,1.455,0,0,0-1.958,0l-8.292,7.769a1.236,1.236,0,0,0-.04,1.787l8.327,7.823a1.457,1.457,0,0,0,1.958,0,1.234,1.234,0,0,0,0-1.83Z"
+                                    transform="translate(-11.251 -6.194)"
+                                    fill="#212121"
+                                />
+                            </svg>
+                        </span> Edit Assignment
+                    </h5>
+                    <!-- Add Assignment 1.3 section starts  -->
+
+                    <div class="mt-4 w_70 mx-auto pb-3">
+                        <form name="form2step3" #heroFormstep3="ngForm" novalidate>
+                            <div class="mb-4 signup_tabs">
+                                <mat-label class="mb-2 d-block f_15 fw_regular ml-0 text_2f">Select Your Area</mat-label>
+
+                                <ng-container *ngFor="let ttarea of areaArray;let i=index;">
+
+                                    <mat-checkbox [ngModelOptions]="{standalone: true}" [checked]="ttarea.State" [(ngModel)]="ttarea.State" name="areaname{{i}}" (change)="onPermissionCheckChangedArea($event,ttarea._id)" class="example-margin fw_regular mr-2">
+                                        <span>{{ttarea.name}}</span>
+                                    </mat-checkbox>
+                                </ng-container>
+                                <!-- <mat-label class="mb-2 d-block f_24 fw_medium">Select Craft Service</mat-label>
+                            <div class="row">
+                                <div class="col-4 pr-2 pr-sm-4 mb-3">
+                                    <span class="assignment_category">Snekker</span>
+                                </div>
+
+                                <div class="col-4 pr-2 pr-sm-4 mb-3">
+                                    <span class="assignment_category">Elektrikker</span>
+                                </div>
+
+                                <div class="col-4 pr-2 pr-sm-4 mb-3">
+                                    <span class="assignment_category">Roglegger</span>
+                                </div>
+
+                                <div class="col-4 pr-2 pr-sm-4 mb-3">
+                                    <span class="assignment_category">Murer</span>
+                                </div>
+
+                                <div class="col-4 pr-2 pr-sm-4 mb-3">
+                                    <span class="assignment_category">Annet</span>
+                                </div>
+                            </div> -->
+
+                            </div>
+                            <button mat-button class="f_18 bg_green text-white mt-5 p-2 w-100" (click)="checkstep3()">Continue for preview</button>
+                        </form>
+                    </div>
+
+                    <!-- Add Assignment 1.3 section ends  -->
+                </div>
+
+                <div id="step4content" class="add_assignment_section pt-0 pt-sm-5 " *ngIf="step==4">
+                    <h5 class="text-center position-relative mx-0 mx-sm-5">
+                        <span class="back_btn" (click)="decreementStep()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="11.058" height="18.136" viewBox="0 0 11.058 18.136">
+                                <path
+                                    id="Icon_ionic-ios-arrow-back"
+                                    data-name="Icon ionic-ios-arrow-back"
+                                    d="M14.584,15.26,21.9,8.4a1.234,1.234,0,0,0,0-1.83,1.455,1.455,0,0,0-1.958,0l-8.292,7.769a1.236,1.236,0,0,0-.04,1.787l8.327,7.823a1.457,1.457,0,0,0,1.958,0,1.234,1.234,0,0,0,0-1.83Z"
+                                    transform="translate(-11.251 -6.194)"
+                                    fill="#212121"
+                                />
+                            </svg>
+                        </span> Overview
+                    </h5>
+                    <!-- Add Assignment 1.4 section starts  -->
+
+                    <div class="mt-4 w_70 mx-auto pb-3">
+                        <form name="form2step4" #heroFormstep4="ngForm" novalidate>
+                            <div class="mb-4">
+                                <mat-label class="mb-2 d-block f_18 fw_medium">Assignment Headline</mat-label>
+                                <mat-form-field appearance="fill" class="w-100 bg-none custom_border_input">
+                                    <input matInput placeholder="Enter Headline" pattern="^[A-Za-zăâîșțĂÂÎȘȚ\s-]*[A-Za-zăâîșțĂÂÎȘȚ-][A-Za-zăâîșțĂÂÎȘȚ\s-]*$" name="headlinefinal" [(ngModel)]="headline" #headvalf="ngModel" required readonly />
+                                </mat-form-field>
+                                <div *ngIf="headvalf.errors  && (headvalf.dirty || headvalf.touched)" class="error_main_div">
+                                    <div [hidden]="!headvalf.errors.required" class="error_message">
+                                        Headline is Mandatory
+                                    </div>
+                                    <div [hidden]="!headvalf.errors.pattern" class="error_message">
+                                        Invalid Headline
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <mat-label class="mb-2 d-block f_18 fw_medium">Description</mat-label>
+                                <mat-form-field appearance="fill" class="w-100 bg-none custom_border_input">
+                                    <textarea matInput placeholder="Add your text" pattern="^[A-Za-zăâîșțĂÂÎȘȚ\s-]*[A-Za-zăâîșțĂÂÎȘȚ-][A-Za-zăâîșțĂÂÎȘȚ\s-]*$" name="descf" [(ngModel)]="description" #descvalf="ngModel" readonly required></textarea>
+                                </mat-form-field>
+                                <div *ngIf="descvalf.errors  && (descvalf.dirty || descvalf.touched)" class="error_main_div">
+                                    <div [hidden]="!descvalf.errors.required" class="error_message">
+                                        Description is Mandatory
+                                    </div>
+                                    <div [hidden]="!descvalf.errors.pattern" class="error_message">
+                                        Invalid Description
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                            <div class="mb-4">
+                                <mat-label class="mb-2 d-block f_18 fw_medium">Selected location</mat-label>
+                                <div class="row">
+                                    <div class="col-4 pr-2 pr-sm-4 mb-3">
+                                        <span class="assignment_category">{{locationselected}}</span>
+                                        <!-- <span class="assignment_category">{{selectedNameField}}</span>
+                                    <span class="assignment_category">{{selectedAreaField}}</span> -->
+                                    </div>
+
+                                    <!-- <div class="col-sm-12">
+                                    <button mat-button class="f_18 bg_green text-white my-4 p-2 w-100" id="show4" (click)="publishData()">Add</button>
+                                </div> -->
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <mat-label class="mb-2 d-block f_18 fw_medium">Selected category for the assignment</mat-label>
+                                <div class="row">
+                                    <div class="col-4 pr-2 pr-sm-4 mb-3">
+                                        <span class="assignment_category">{{categoryselected}}</span>
+                                        <!-- <span class="assignment_category">{{selectedNameField}}</span>
+                                    <span class="assignment_category">{{selectedAreaField}}</span> -->
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <button mat-button class="f_18 bg_green text-white mt-5 p-2 w-100" id="show4" (click)="publishData()">Publish</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Add Assignment 1.4 section ends  -->
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="sidemenu_fixed d-none d-sm-block" routerLink="/customers/homepagecustomer">
+    <span class="">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30.298" height="33.331" viewBox="0 0 30.298 33.331">
+            <g id="Icon_feather-home" data-name="Icon feather-home" transform="translate(1.5 1.5)">
+                <path
+                    id="Path_28365"
+                    data-name="Path 28365"
+                    d="M4.5,13.616,18.149,3,31.8,13.616V30.3a3.033,3.033,0,0,1-3.033,3.033H7.533A3.033,3.033,0,0,1,4.5,30.3Z"
+                    transform="translate(-4.5 -3)"
+                    fill="none"
+                    stroke="#1bbc9b"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="3"
+                />
+                <path id="Path_28366" data-name="Path 28366" d="M13.5,33.165V18h9.1V33.165" transform="translate(-4.401 -2.835)" fill="none" stroke="#1bbc9b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+            </g>
+        </svg>
+    </span>
+
+    <span class="fixed_active">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32.29" height="32.29" viewBox="0 0 32.29 32.29">
+            <g id="Icon_feather-upload" data-name="Icon feather-upload" transform="translate(1.5 1.5)">
+                <path
+                    id="Path_31593"
+                    data-name="Path 31593"
+                    d="M33.79,22.5v6.509a3.254,3.254,0,0,1-3.254,3.254H7.754A3.254,3.254,0,0,1,4.5,29.009V22.5"
+                    transform="translate(-4.5 -2.973)"
+                    fill="none"
+                    stroke="#1bbc9b"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="3"
+                />
+                <path id="Path_31594" data-name="Path 31594" d="M26.772,12.636,18.636,4.5,10.5,12.636" transform="translate(-3.991 -4.5)" fill="none" stroke="#1bbc9b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                <path id="Path_31595" data-name="Path 31595" d="M18,4.5V24.027" transform="translate(-3.355 -4.5)" fill="none" stroke="#1bbc9b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+            </g>
+        </svg>
+    </span>
+
+    <span class="" routerLink="/customers/messagecustomer" [ngClass]="{'messageunread' : messageUnseenVal>0}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32.161" height="32.161" viewBox="0 0 32.161 32.161">
+            <path
+                id="Icon_feather-message-square"
+                data-name="Icon feather-message-square"
+                d="M33.661,23.941a3.24,3.24,0,0,1-3.24,3.24H10.98L4.5,33.661V7.74A3.24,3.24,0,0,1,7.74,4.5H30.421a3.24,3.24,0,0,1,3.24,3.24Z"
+                transform="translate(-3 -3)"
+                fill="none"
+                stroke="#1bbc9b"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="3"
+            />
+        </svg>
+    </span>
+</section>
+
+<app-footercustomer></app-footercustomer>
+
+<!-- Share Post popup starts -->
+
+<div class="modal fade custom_modal" id="exampleModalCenter_share_post" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header position-relative px-2 px-sm-3">
+                <h5 class="modal-title text-center f_22 fw_medium w-100" id="exampleModalLongTitle">Share Your Post</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pb-0 pt-0 pt-sm-2 px-2 px-sm-3">
+                <p class="share_post_text fw_light f_18 text_gray text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed convallis leo in nulla ullamrper, sed fringilla erat sagittis</p>
+            </div>
+            <div class="modal-footer pb-0 px-2 px-sm-3 ">
+                <button mat-button class="f_18 w-100 fb_btn text-white p-2 mb-1" routerLink="/customers/uploadassignmentcustomer" data-dismiss="modal">
+                    <span class="mr-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10.476" height="19.561" viewBox="0 0 10.476 19.561">
+                            <path
+                                id="Icon_awesome-facebook-f"
+                                data-name="Icon awesome-facebook-f"
+                                d="M11.4,11l.543-3.54h-3.4v-2.3a1.77,1.77,0,0,1,2-1.913h1.544V.239A18.831,18.831,0,0,0,9.345,0c-2.8,0-4.626,1.7-4.626,4.765v2.7H1.609V11H4.719v8.558H8.546V11Z"
+                                transform="translate(-1.609)"
+                                fill="#fff"
+                            />
+                        </svg>
+                    </span>
+                    Share On Facebook
+                </button>
+                <button mat-button class="f_16 w-100 text_gray fw_light" data-dismiss="modal" routerLink="/customers/uploadassignmentcustomer">Skip</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Share Post popup ends -->
+
+
+<!-- Profile popup starts -->
+
+<div class="modal fade custom_modal custom_modal_width" id="exampleModalCenter_view_profile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header position-relative px-2 px-sm-3">
+                <h5 class="modal-title text-center f_22 fw_medium w-100" id="exampleModalLongTitle">Profile Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body px-2 px-sm-3">
+
+                <div class="d-flex justify-content-center justify-content-sm-between align-items-start">
+                    <div class="d-sm-flex px-1 px-sm-3 w-100">
+                        <div class="user_profile">
+                            <img class="avatar avatar-lg img-fluid" src="assets/images/noimageavailable.png" alt="..." *ngIf="!companyProfile?.logo" />
+                            <img class="avatar avatar-lg img-fluid" [src]="baseImgUrlCust+companyProfile.logo" alt="..." *ngIf="companyProfile?.logo" />
+                        </div>
+                        <div class="user_info pl-0 pl-sm-3">
+                            <h5 class="f_22 fw_medium text_black mb-4 mb-sm-3 mt-3 mt-sm-0 text-center text-sm-left">{{companyProfile?.companyName}}</h5>
+                            <div>
+                                <span>Organization Number</span>
+                                <p class="f_16 fw_medium text_black mb-2">{{companyProfile?.companyNumber | formatPhone}}</p>
+                            </div>
+                            <div>
+                                <span>Phone Number</span>
+                                <p class="f_16 fw_medium text_black">{{companyProfile?.countryCode}} {{companyProfile?.phone | formatphonenew}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="">
+                        <!-- <button mat-button class="f_16 bg_green text-white mt-4 p-2 px-3">Invite To An Assignment</button> -->
+                    </div>
+                </div>
+
+                <div class="row mt-4 px-1 px-sm-3">
+                    <div class="col-sm-6">
+                        <div class="user_reviews">
+                            <h6 class="f_18 fw_medium position-relative mb-4">Reviews</h6>
+
+                            <ng-container *ngIf="companyProfile?.allReviews?.length<1">
+                                <div class="d-flex">
+                                    <div class="uploaded_image_size position-relative">
+                                        <img src="assets/images/nocompanyreviews.png" alt="" class="img-fluid w-100 added_image">
+                                    </div>
+
+                                </div>
+                            </ng-container>
+                            <div>
+
+                                <ng-container *ngIf="companyProfile?.allReviews?.length==1">
+
+
+                                    <div class="user_review_box" *ngFor="let img of companyProfile?.allReviews">
+                                        <div class="user_rating_img mb-3">
+                                            <img class="avatar avatar-lg img-fluid" src="assets/images/review-image.png" alt="..." *ngIf="!img?.review?.author?.profilePic" />
+                                            <img class="avatar avatar-lg img-fluid" [src]="baseImgUrlCust+img.review.author.profilePic" alt="..." *ngIf="img?.review?.author?.profilePic" />
+                                        </div>
+                                        <h5 class="f_16 fw_medium text-black mb-1">{{img?.review?.author?.fullName}}</h5>
+                                        <div class="ratings mb-1">
+                                            <star-rating value="{{img?.review?.starCount}}" [totalstars]="5" checkedcolor="yellow" uncheckedcolor="black" readonly="true" size="24px" (rate)="onRate($event)"></star-rating>
+
+                                        </div>
+                                        <p class="mb-0">{{img?.review?.text}}</p>
+
+                                    </div>
+
+
+
+                                </ng-container>
+                                <ng-container *ngIf="companyProfile?.allReviews?.length>1">
+                                    <ngx-slick-carousel (init)="slickInit($event)" class="carousel" #slickModala="slick-carousel" [config]="slideConfig2">
+                                        <ng-container *ngIf="showcarsuel">
+                                            <div ngxSlickItem *ngFor="let img of companyProfile?.allReviews" class="slide">
+                                                <div class="user_review_box">
+                                                    <div class="user_rating_img mb-3">
+                                                        <img class="avatar avatar-lg img-fluid" src="assets/images/review-image.png" alt="..." *ngIf="!img?.review?.author?.profilePic" />
+                                                        <img class="avatar avatar-lg img-fluid" [src]="baseImgUrlCust+img.review.author.profilePic" alt="..." *ngIf="img?.review?.author?.profilePic" />
+                                                    </div>
+                                                    <h5 class="f_16 fw_medium text-black mb-1">{{img?.review?.author?.fullName}}</h5>
+                                                    <div class="ratings mb-1">
+                                                        <star-rating value="{{img?.review?.starCount}}" [totalstars]="5" checkedcolor="yellow" uncheckedcolor="black" readonly="true" size="24px" (rate)="onRate($event)"></star-rating>
+
+                                                    </div>
+                                                    <p class="mb-0">{{img?.review?.text}}</p>
+
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </ngx-slick-carousel>
+
+                                </ng-container>
+                            </div>
+
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="user_reviews">
+                            <h6 class="f_18 fw_medium position-relative mb-4">Uploaded Images</h6>
+                            <div class="row">
+
+                                <ng-container *ngIf="companyProfile?.galleryImages?.length>0">
+                                    <div class="col-6 col-sm-4 mb-4 mb-sm-3" *ngFor="let images of companyProfile?.galleryImages">
+                                        <div class="d-flex">
+                                            <div class="uploaded_image_size position-relative">
+                                                <img [src]="baseImgUrl+images" alt="" class="img-fluid w-100 added_image">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="companyProfile?.galleryImages?.length<1">
+                                    <div class="col-6 col-sm-4 mb-4 mb-sm-3">
+                                        <div class="d-flex">
+                                            <div class="uploaded_image_size position-relative">
+                                                <img src="assets/images/noimageavailable.png" alt="" class="img-fluid w-100 added_image">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </ng-container>
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="isLoading">
+    <div class="spinner_overlay"></div>
+    <div class="loader-container">
+        <div class="loader dots-wave">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+</div>
+<!-- Profile popup ends -->
+
+<!-- BootStrap Modal -->
+
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                Are you sure that you want to cancel registration of an assignment?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" routerLink="/customers/uploadassignmentcustomer">Yes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

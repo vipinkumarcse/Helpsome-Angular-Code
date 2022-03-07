@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="38.5" height="38.5" viewBox="0 0 38.5 38.5">
+  <g id="videoicn" transform="translate(-340.824 -118.259)">
+    <rect id="Rectangle_3362" data-name="Rectangle 3362" width="27.224" height="27.224" rx="9" transform="translate(340.824 137.509) rotate(-45)" fill="#1bbc9b"/>
+    <g id="video-player_1_" data-name="video-player (1)" transform="translate(353.107 133.547)">
+      <path id="Path_25271" data-name="Path 25271" d="M8.24,0H1.608A1.554,1.554,0,0,0,0,1.49V6.434a1.554,1.554,0,0,0,1.608,1.49H8.24a1.554,1.554,0,0,0,1.608-1.49V1.49A1.554,1.554,0,0,0,8.24,0Zm0,0" transform="translate(0 0)" fill="none" stroke="#fff" stroke-width="1.2"/>
+      <path id="Path_25272" data-name="Path 25272" d="M335.27,24.775c.007.015-.124-.051-.22,0l-3.459,1.809a.273.273,0,0,0-.154.239v1.671a.267.267,0,0,0,.121.219l3.459,2.379a.346.346,0,0,0,.329.03.276.276,0,0,0,.175-.249v-5.86c0-.1-.258-.253-.252-.239Z" transform="translate(-321.589 -23.741)" fill="none" stroke="#fff" stroke-width="1.2"/>
+    </g>
+  </g>
+</svg>

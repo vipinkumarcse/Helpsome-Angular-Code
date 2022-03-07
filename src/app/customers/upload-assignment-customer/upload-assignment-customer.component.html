@@ -1,0 +1,229 @@
+<app-header-customer></app-header-customer>
+
+<section class="hjel_mobile_text mt-4 d-block d-sm-none">
+    <p class="f_20 fw_medium text-center">Be helpful to yourself and others</p>
+</section>
+
+<section class="mt-4 mt-sm-5">
+    <div class="container">
+        <div class="homepage_heading text-center fw_sitkab mb-6 d-none d-sm-block">
+            <h4>Add New</h4>
+            <h1 class="text_black">Post Assignments</h1>
+        </div>
+
+        <div class="upload_bg mb-3">
+            <div class="row" *ngIf="postData && postData?.length>0">
+                <div class="col-sm-6" *ngFor="let data of postData | paginate: { itemsPerPage: itemsPerPage, currentPage: p,totalItems:totalItems};let i=index">
+                    <div class="job_posts mb-4">
+                        <div class="row">
+                            <div class="col-5 col-sm-4">
+                                <div class="company_post" *ngIf="data?.medias?.length<1">
+                                    <img src="assets/images/noimageavailable.png" alt="" class="img-fluid" />
+                                </div>
+                                <ng-container *ngIf="data?.medias?.length==1">
+                                    <div class="company_post" *ngFor="let img of  data?.medias">
+                                        <img [src]="baseImgUrl+img.media" alt="" width="100%" />
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="data?.medias?.length>1">
+                                    <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                                        <ng-container *ngIf="showcarsuel">
+                                            <div ngxSlickItem *ngFor="let img of  data?.medias" class="slide">
+                                                <div class="company_post">
+                                                    <img [src]="baseImgUrl+img.media" alt="" width="100%" />
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </ngx-slick-carousel>
+                                </ng-container>
+                            </div>
+                            <div class="col-7 col-sm-5 d-flex pl-0 pl-sm-2">
+                                <div class="mr-3">
+                                    <h5 class="f_20 fw_medium">{{data?.headline}}</h5>
+                                    <p class="f_18 mb-2">
+                                        <span class="location_map mr-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14.223" height="18.964" viewBox="0 0 14.223 18.964">
+                                                <path
+                                                    id="Icon_awesome-map-marker-alt"
+                                                    data-name="Icon awesome-map-marker-alt"
+                                                    d="M6.381,18.582C1,10.78,0,9.979,0,7.112a7.112,7.112,0,1,1,14.223,0c0,2.867-1,3.668-6.381,11.47a.889.889,0,0,1-1.462,0Zm.731-8.507A2.963,2.963,0,1,0,4.148,7.112,2.963,2.963,0,0,0,7.112,10.075Z"
+                                                    transform="translate(0)"
+                                                    fill="#464646"
+                                                />
+                                            </svg>
+                                        </span> {{data?.assignmentArea?.name}}
+                                    </p>
+
+                                    <p class="text_gray fw_light mb-0 description_text position-relative ">
+                                        {{(data.description==null)?'':(data?.description.length
+                                        <25?data?.description:(data?.description.slice(0,22))+ '...') }} </p>
+
+                                            <!-- <p class="text_gray fw_light mb-0 description_text position-relative see_more_none" data-toggle="modal" data-target="#exampleModalCenter_job_details">
+                                        {{data?.description}}
+                                    </p> -->
+                                </div>
+
+                                <div class="">
+                                    <span class="d-block d-sm-none">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="3" height="14" viewBox="0 0 3 14">
+                                            <g id="more_4_" data-name="more (4)" transform="translate(-149.289 0.223)">
+                                                <g id="Group_19131" data-name="Group 19131" transform="translate(149.284 -0.223)">
+                                                    <g id="Group_19130" data-name="Group 19130" transform="translate(0)">
+                                                        <circle id="Ellipse_239" data-name="Ellipse 239" cx="1.5" cy="1.5" r="1.5" transform="translate(0.006 0)" />
+                                                    </g>
+                                                </g>
+                                                <g id="Group_19133" data-name="Group 19133" transform="translate(149.358 5.112)">
+                                                    <g id="Group_19132" data-name="Group 19132" transform="translate(0)">
+                                                        <circle id="Ellipse_240" data-name="Ellipse 240" cx="1.429" cy="1.429" r="1.429" />
+                                                    </g>
+                                                </g>
+                                                <g id="Group_19135" data-name="Group 19135" transform="translate(149.284 10.298)">
+                                                    <g id="Group_19134" data-name="Group 19134" transform="translate(0 0)">
+                                                        <circle id="Ellipse_241" data-name="Ellipse 241" cx="1.5" cy="1.5" r="1.5" transform="translate(0.006 0.479)" />
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 d-block d-sm-none">
+                                <!-- <p class="text_gray fw_light mb-0 description_text position-relative mt-3 mb-2">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed convallis leo in nulla ullamrper, sed fringilla See More. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed convallis leo in nulla
+                                ullamrper, sed fringilla See More
+                            </p> -->
+                            </div>
+                            <div class="col-sm-3 d-flex flex-column align-items-end pr-2">
+                                <div class="dropdown user_profile_div cursor-pointer ml-2 d-none d-sm-block">
+                                    <div class="profile_outer_rotate dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="d-none d-sm-block">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="3" height="14" viewBox="0 0 3 14">
+                                                <g id="more_4_" data-name="more (4)" transform="translate(-149.289 0.223)">
+                                                    <g id="Group_19131" data-name="Group 19131" transform="translate(149.284 -0.223)">
+                                                        <g id="Group_19130" data-name="Group 19130" transform="translate(0)">
+                                                            <circle id="Ellipse_239" data-name="Ellipse 239" cx="1.5" cy="1.5" r="1.5" transform="translate(0.006 0)" />
+                                                        </g>
+                                                    </g>
+                                                    <g id="Group_19133" data-name="Group 19133" transform="translate(149.358 5.112)">
+                                                        <g id="Group_19132" data-name="Group 19132" transform="translate(0)">
+                                                            <circle id="Ellipse_240" data-name="Ellipse 240" cx="1.429" cy="1.429" r="1.429" />
+                                                        </g>
+                                                    </g>
+                                                    <g id="Group_19135" data-name="Group 19135" transform="translate(149.284 10.298)">
+                                                        <g id="Group_19134" data-name="Group 19134" transform="translate(0 0)">
+                                                            <circle id="Ellipse_241" data-name="Ellipse 241" cx="1.5" cy="1.5" r="1.5" transform="translate(0.006 0.479)" />
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                    </div>
+
+                                    <div class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" (click)="editassignment(data?._id)">View & Edit</a>
+                                        <a class="dropdown-item" (click)="deleteAssignment(data?._id)">Delete</a>
+                                    </div>
+                                </div>
+
+                                <p class="fw_light f_14 date_text mt-0 mt-sm-4 mb-0">{{data?.updatedAt | date}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="postData?.length<1" class="job_posts mb-4">
+                <p class="centerempty">No Post available</p>
+            </div>
+
+            <div class="position-relative mb-4 mt-4 w-30 mx-auto" routerLink="/customers/addassignmentcustomer">
+                <button mat-button class="f_18 w-100 bg_green text-white p-2">Add Assignment</button>
+                <!-- <span class="add_assignment">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="41.803" height="41.803" viewBox="0 0 41.803 41.803">
+                            <path
+                                id="Icon_ionic-md-close"
+                                data-name="Icon ionic-md-close"
+                                d="M37.083,10.479,34.127,7.523,22.3,19.347,10.479,7.523,7.523,10.479,19.347,22.3,7.523,34.127l2.956,2.956L22.3,25.259,34.127,37.083l2.956-2.956L25.259,22.3Z"
+                                transform="translate(-10.64 20.901) rotate(-45)"
+                                fill="#fff"
+                            />
+                        </svg>
+                    </span> -->
+            </div>
+        </div>
+
+
+
+        <div class="mb-5 d-flex justify-content-end" *ngIf="postData?.length>0">
+            <pagination-controls (pageChange)="p = $event;getAssignmentData()"></pagination-controls>
+        </div>
+    </div>
+</section>
+
+<section class="sidemenu_fixed" routerLink="/customers/homepagecustomer">
+    <span class="">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30.298" height="33.331" viewBox="0 0 30.298 33.331">
+            <g id="Icon_feather-home" data-name="Icon feather-home" transform="translate(1.5 1.5)">
+                <path
+                    id="Path_28365"
+                    data-name="Path 28365"
+                    d="M4.5,13.616,18.149,3,31.8,13.616V30.3a3.033,3.033,0,0,1-3.033,3.033H7.533A3.033,3.033,0,0,1,4.5,30.3Z"
+                    transform="translate(-4.5 -3)"
+                    fill="none"
+                    stroke="#1bbc9b"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="3"
+                />
+                <path id="Path_28366" data-name="Path 28366" d="M13.5,33.165V18h9.1V33.165" transform="translate(-4.401 -2.835)" fill="none" stroke="#1bbc9b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+            </g>
+        </svg>
+    </span>
+
+    <span class="fixed_active">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32.29" height="32.29" viewBox="0 0 32.29 32.29">
+            <g id="Icon_feather-upload" data-name="Icon feather-upload" transform="translate(1.5 1.5)">
+                <path
+                    id="Path_31593"
+                    data-name="Path 31593"
+                    d="M33.79,22.5v6.509a3.254,3.254,0,0,1-3.254,3.254H7.754A3.254,3.254,0,0,1,4.5,29.009V22.5"
+                    transform="translate(-4.5 -2.973)"
+                    fill="none"
+                    stroke="#1bbc9b"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="3"
+                />
+                <path id="Path_31594" data-name="Path 31594" d="M26.772,12.636,18.636,4.5,10.5,12.636" transform="translate(-3.991 -4.5)" fill="none" stroke="#1bbc9b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                <path id="Path_31595" data-name="Path 31595" d="M18,4.5V24.027" transform="translate(-3.355 -4.5)" fill="none" stroke="#1bbc9b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+            </g>
+        </svg>
+    </span>
+
+    <span class="" routerLink="/customers/messagecustomer" [ngClass]="{'messageunread' : messageUnseenVal>0}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32.161" height="32.161" viewBox="0 0 32.161 32.161">
+            <path
+                id="Icon_feather-message-square"
+                data-name="Icon feather-message-square"
+                d="M33.661,23.941a3.24,3.24,0,0,1-3.24,3.24H10.98L4.5,33.661V7.74A3.24,3.24,0,0,1,7.74,4.5H30.421a3.24,3.24,0,0,1,3.24,3.24Z"
+                transform="translate(-3 -3)"
+                fill="none"
+                stroke="#1bbc9b"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="3"
+            />
+        </svg>
+    </span>
+</section>
+
+<app-footercustomer></app-footercustomer>
+<div *ngIf="isLoading">
+    <div class="spinner_overlay"></div>
+    <div class="loader-container">
+        <div class="loader dots-wave">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+</div>

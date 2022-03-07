@@ -1,0 +1,38 @@
+<app-commonheader></app-commonheader>
+
+<section class="main-video-screen position-relative">
+  <div class="video-sec">
+    <div class="person-box">
+      <div class="conatiner-fluid">
+        <div class="row no-gutters">
+          <div class="col-md-6">
+            <div class="video-capt position-relative d-flex">
+              <div *ngFor="let callId of remoteCalls" [id]="callId" class="remote">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="video-capt">
+              <div [id]="localCallId" class="local"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="camera-controls position-absolute text-center">
+      <div class="video-call-options mt-2 d-flex primary-blue-bg justify-content-between">
+
+        <a id="mute-video" (click)="mutevideoform()"><img *ngIf="isVdiomute" src="assets/images/videocallicon.png" alt="icon" />
+          <img  *ngIf="!isVdiomute" src="assets/images/videocallunmuteicon.png" alt="icon" />
+        </a>
+        <a id="mute-audio" (click)="muteaudioform()"><img *ngIf="isAdiomute" src="assets/images/mic.png" alt="icon" />
+          <img *ngIf="!isAdiomute" src="assets/images/off-mike.png" alt="icon" />
+        </a>
+        <a class="red-bg" (click)="leaveform()"><img src="assets/images/drop-phone-icon.svg" alt="icon" /></a>
+        <span>
+          <!-- <a class="beer-btn d-inline-block" href="#"><img src="assets/images/beer-icon.svg" alt="icon" /></a> -->
+        </span>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,138 @@
+<header class="splash_top_bar splash_mobile_bar mb-sm-0 mb-5">
+    <img src="assets/images/logo_white.svg" alt="logo" class="img-fluid   d-sm-none d-block" />
+</header>
+<section class="login_backimage d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-lg-5 ml-7">
+                <h4 class="text_black mb-4 fw_medium f_26 ml-2">Login Your Account</h4>
+                <mat-label class="text_gray fw_regular">Select Your Type</mat-label>
+                <mat-tab-group class="signup_tabs mt-2" [selectedIndex]="selectedTabIndex">
+                    <mat-tab label="Private Company" class="mb-2">
+                <div class="login_form">
+                    <form name="form1" #heroForm="ngForm" novalidate>
+                        <div class="row m-0">
+                            <div class="col-5 pl-0">
+                                <mat-form-field floatLabel="never" appearance="fill" class="w-100 bg-none custom_input mb-1">
+                                    <label>Select Code</label>
+                                    <mat-select placeholder="Country Code" [(value)]="Selected_countrycode" name="codevalue" (selectionChange)="onZipCodeChange($event)" required>
+                                        <input class="time-zone-input" placeholder="Search Code" name="serchinput" (keyup)="onKeypressedZip($event.target.value)" />
+                                      
+
+                                        <mat-option *ngFor="let bank of filteredBanks " [value]="bank.PhoneCode">
+                                             {{bank.CountryName}} {{bank.PhoneCode}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-7 pr-0">
+                                <mat-form-field floatLabel="never" appearance="fill" class="w-100 bg-none custom_input mb-1">
+                                    <label>Phone Number</label>
+                                    <input
+                                        matInput
+                                        placeholder="Enter phone number"
+                                       
+                                        name="ContactPersonPhone"
+                                        type="tel"
+                                        class="form-control"
+                                        [ngModel]="phoneEntered | formatphonenew"
+                                        (ngModelChange)="phoneEntered = $event"
+                                        #idphone="ngModel"
+                                        [minlength]="10"
+                                        [maxlength]="13"
+                                        (keypress)="numberOnly($event)"
+                                        required
+                                    />
+                                  
+                                </mat-form-field>
+                                <div *ngIf="idphone.errors && submitLoginCompany && (idphone.dirty || idphone.touched)" class="error_main_div">
+                                    <div [hidden]="!idphone.errors.required" class="error_message">
+                                        Phone number is Mandatory
+                                    </div>
+                                    <div [hidden]="!idphone.errors.pattern" class="error_message">
+                                        Phone number invalid
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <a href="#" class="text_gray f_14 font-italic float-right" routerLink="/forgetpassword">Forgot Password</a> -->
+                        <div class="clearfix"></div>
+                        <button mat-button class="f_18 w-100 bg_green text-white mt-3 p-2" [disabled]="!heroForm.valid" (click)="loginComapny()" >Login</button>
+                        <p class="text-center text_gray mt-4 mb-0">Don't have an account? <a href="#" class="text_green fw_medium" routerLink="/signup">Sign Up</a></p>
+                    </form>
+                </div>
+                </mat-tab>
+
+                <mat-tab label="Customer" class="mb-2">
+                    <div class="login_form">
+                        <form name="form2" #heroForm2="ngForm" novalidate>
+                            <div class="row m-0">
+                                <div class="col-5 pl-0">
+                                    <mat-form-field floatLabel="never" appearance="fill" class="w-100 bg-none custom_input mb-1">
+                                        <label>Select Code</label>
+                                        <mat-select placeholder="Country Code" [(value)]="Selected_countrycodecust2" name="codevaluecust2" (selectionChange)="onZipCodeChangecust2($event)" required>
+                                            <input class="time-zone-input" placeholder="Search Code" name="serchinputcust2" (keyup)="onKeypressedZipcust2($event.target.value)" />
+                                            <!-- <mat-option>
+        <ngx-mat-select-search [formControl]="bankFilterCtrl" [placeholderLabel]="'Search'" [noEntriesFoundLabel]="'No Record Found'"></ngx-mat-select-search>
+    </mat-option> -->
+
+                                            <mat-option *ngFor="let bank of filteredBankscust2 " [value]="bank.PhoneCode">
+                                                 {{bank.CountryName}} {{bank.PhoneCode}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-7 pr-0">
+                                    <mat-form-field floatLabel="never" appearance="fill" class="w-100 bg-none custom_input mb-1">
+                                        <label>Phone Number</label>
+                                        <input
+                                            matInput
+                                            placeholder="Enter phone number"
+                                           
+                                            name="ContactPersonPhonecust2"
+                                            type="text"
+                                            class="form-control"
+                                            [ngModel]="phoneEnteredcust2 | formatphonenew"
+                                            (ngModelChange)="phoneEnteredcust2 = $event"
+                                            #idphonecust2="ngModel"
+                                            [minlength]="10"
+                                                    [maxlength]="13"
+                                                    (keypress)="numberOnly($event)"
+                                            required
+                                        />
+                                       
+                                    </mat-form-field>
+                                    <div *ngIf="idphonecust2.errors && submitLoginCustomer && (idphonecust2.dirty || idphonecust2.touched)" class="error_main_div">
+                                        <div [hidden]="!idphonecust2.errors.required" class="error_message">
+                                            Phone number is Mandatory
+                                        </div>
+                                        <div [hidden]="!idphonecust2.errors.pattern" class="error_message">
+                                           Phone number invalid
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <a href="#" class="text_gray f_14 font-italic float-right" routerLink="/forgetpassword">Forgot Password</a> -->
+                            <div class="clearfix"></div>
+                            <button mat-button class="f_18 w-100 bg_green text-white mt-3 p-2" [disabled]="!heroForm2.valid" (click)="loginCustomer()">Login</button>
+                            <p class="text-center text_gray mt-4 mb-0">Don't have an account? <a href="#" class="text_green fw_medium" routerLink="/signup">Sign Up</a></p>
+                        </form>
+                    </div>
+                    </mat-tab>
+            </mat-tab-group>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div *ngIf="isLoading">
+<div class="spinner_overlay"></div>
+<div class="loader-container">
+    <div class="loader dots-wave">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+</div>
+</div>
+
